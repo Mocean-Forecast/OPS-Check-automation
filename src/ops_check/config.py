@@ -60,7 +60,7 @@ class Settings:
     processing_deadline: time = time(11, 0)
     transit_gap_minutes: float = 60.0
     transit_signal_id: int | None = None  # None = first signal found (as Sjoerd's code)
-    registry_stale_hours: float = 26.0
+    registry_stale_hours: float = 0.0  # 0 = off (D14), see collect.run_warnings
 
     results_dir: Path = Path("results")
     teams_webhook_url: str = ""
@@ -91,7 +91,7 @@ class Settings:
             processing_deadline=_time(env("PROCESSING_DEADLINE", "11:00")),
             transit_gap_minutes=float(env("TRANSIT_GAP_MINUTES", "60")),
             transit_signal_id=int(signal) if signal else None,
-            registry_stale_hours=float(env("REGISTRY_STALE_HOURS", "26")),
+            registry_stale_hours=float(env("REGISTRY_STALE_HOURS", "0")),
             results_dir=Path(env("RESULTS_DIR", "results")),
             teams_webhook_url=env("TEAMS_WEBHOOK_URL", ""),
             watchdog_webhook_url=env("WATCHDOG_WEBHOOK_URL", ""),

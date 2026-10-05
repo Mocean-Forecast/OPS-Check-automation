@@ -5,6 +5,13 @@
 # Priority vessels get their own alert when they need action (D8).
 priority = ["Windcat Dorothea", "Offshore Waddenzee", "Bloemgracht"]
 
+# Extra folder names, for vessels whose folder on a share differs from `vesselname`.
+# Matching ignores case and treats spaces/hyphens as underscores. All matching folders are merged.
+[folders]
+"Bloemgracht"    = ["Bloemgracht"]                     # vesselname spliethoff_bloemgracht (Raw only)
+"Brouwersgracht" = ["Brouwersgracht"]                  # vesselname spliethoff_brouwersgracht
+"Boka Ndeavor"   = ["Boskalis_Ndeavor", "Ndeavour"]    # vesselname Boka_Ndeavour
+
 # Known cases: expected to be quiet. Shown on the "Known" line instead of as a fault.
 # After `until` the vessel is checked again and flagged as "registry expired".
 #

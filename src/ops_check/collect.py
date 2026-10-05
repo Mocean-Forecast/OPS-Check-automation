@@ -44,7 +44,11 @@ def build_evidence(v: Vessel, day: date, scan: ShareScan, dd: DayData) -> Eviden
 def run_warnings(vessels: list[Vessel], scan: ShareScan, synced_at: datetime | None,
                  now: datetime, s: Settings, ignored_systems: set[str] | None = None) -> list[str]:
     w: list[str] = []
-    if synced_at is None:
+    # D14 is off by default (REGISTRY_STALE_HOURS=0): `lastModified` only changes when a vessel row
+    # changes, not on every daily sync, so it can't show whether the sync ran (seen 5 Oct).
+    if s.registry_stale_hours <= 0:
+        pass
+    elif synced_at is None:
         w.append("Registry sync time unknown (no sync timestamp on `vessels`)")
     elif now - synced_at > timedelta(hours=s.registry_stale_hours):
         w.append(f"Registry not synced since {synced_at.astimezone().strftime('%d/%m %H:%M')}")
@@ -52,7 +56,8 @@ def run_warnings(vessels: list[Vessel], scan: ShareScan, synced_at: datetime | N
         w.append(f"Share not reachable: {root}")
     if scan.unknown_active:
         u = scan.unknown_active
-        w.append(f"Archives arriving for {len(u)} folder(s) not matched to an on-hire vessel: "
+        w.append(f"Archives still arriving for {len(u)} folder(s) without an on-hire vessel "
+                 f"(off-hire in registry, or unknown folder): "
                  f"{', '.join(u[:8])}" + (" …" if len(u) > 8 else ""))
     no_folder = [v.name for v in vessels if v.system and not scan.get(v.key).has_folder]
     if no_folder:

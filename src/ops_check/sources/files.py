@@ -103,23 +103,29 @@ def scan_shares(landing: Path | None, staging: Path | None, processed: Path | No
 
     for key, names in wanted.items():
         sf = SystemFiles()
-        for n in names:
-            k = norm(n)
-            if (p := idx["landing"].get(k)) and "landing" not in sf.shares:
+        # A vessel can have several folders on one share (e.g. Brouwersgracht and
+        # spliethoff_brouwersgracht in Raw_vessel_data2): merge them all.
+        seen: set[Path] = set()
+        for k in dict.fromkeys(norm(n) for n in names):
+            if (p := idx["landing"].get(k)) and p not in seen:
+                seen.add(p)
                 sf.shares.add("landing")
-                sf.landing = _archives(p, since)
-            if (p := idx["staging"].get(k)) and "staging" not in sf.shares:
+                sf.landing += _archives(p, since)
+            if (p := idx["staging"].get(k)) and p not in seen:
+                seen.add(p)
                 sf.shares.add("staging")
-                sf.staging = _archives(p, since)
+                sf.staging += _archives(p, since)
                 for c in p.iterdir():
                     if _DAY_DIR.match(c.name) and c.is_dir():
                         d = date.fromisoformat(c.name)
-                        if d >= since:
+                        if d >= since and (d not in sf.staging_days
+                                           or c.stat().st_mtime > sf.staging_days[d].modified.timestamp()):
                             sf.staging_days[d] = _info(c, d)
-            if (p := idx["processed"].get(k)) and "processed" not in sf.shares:
+            if (p := idx["processed"].get(k)) and p not in seen:
+                seen.add(p)
                 sf.shares.add("processed")
                 f = p / "processeddata" / f"improveddata{day.isoformat()}.mat"
-                if f.is_file():
+                if f.is_file() and day not in sf.processed:
                     sf.processed[day] = _info(f, day)
         systems[norm(key)] = sf
 

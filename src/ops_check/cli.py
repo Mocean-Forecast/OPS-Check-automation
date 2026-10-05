@@ -37,10 +37,34 @@ def main(argv: list[str] | None = None) -> int:
     w.add_argument("--slot", choices=["morning", "recheck"], required=True)
     w.add_argument("--dry-run", action="store_true")
 
+    sub.add_parser("test-post", help="post a small test card to the Teams webhook")
+
     p.add_argument("--env", type=Path, default=Path(".env"))
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     s = Settings.from_env(args.env)
+
+    if args.cmd == "test-post":
+        import socket
+        from datetime import datetime as _dt
+
+        from .notify import teams
+        from .report.card import webhook_payload
+
+        card = {"$schema": "http://adaptivecards.io/schemas/adaptive-card.json", "type": "AdaptiveCard",
+                "version": "1.4", "body": [
+                    {"type": "TextBlock", "text": "OPS CHECK – test post", "weight": "Bolder", "size": "Large"},
+                    {"type": "TextBlock", "wrap": True,
+                     "text": "Connection test from the automated ops check. No vessel data. "
+                             "**Bold**, and colours: "},
+                    {"type": "TextBlock", "text": "NEW · red bold", "color": "Attention", "weight": "Bolder"},
+                    {"type": "TextBlock", "text": "CHANGED · amber bold", "color": "Warning", "weight": "Bolder"},
+                    {"type": "TextBlock", "text": "RESOLVED · green", "color": "Good"},
+                    {"type": "TextBlock", "isSubtle": True, "size": "Small",
+                     "text": f"{socket.gethostname()} · {_dt.now().strftime('%d/%m/%Y %H:%M')}"}]}
+        teams.post(s.teams_webhook_url, webhook_payload(card))
+        print("test card posted")
+        return 0
 
     if args.cmd == "watchdog":
         alert = watchdog(s, args.slot, post=not args.dry_run)

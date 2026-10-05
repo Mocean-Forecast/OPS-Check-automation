@@ -71,6 +71,11 @@ class Vessel:
     clients: list[str] = field(default_factory=list)
     daughtercraft: bool = False
     site: str | None = None  # forecast area for v2 (D27)
+    folder_aliases: list[str] = field(default_factory=list)  # extra folder names on the shares (config)
+
+    @property
+    def folder_names(self) -> list[str]:
+        return [n for n in [self.system, *self.folder_aliases] if n]
 
     @property
     def key(self) -> str:
@@ -95,9 +100,11 @@ class Evidence:
     """Everything collected for one vessel on one data day, before any checks run."""
 
     landing_archives: list[FileInfo] = field(default_factory=list)   # FTP_VESSEL_DATA
-    staging_archives: list[FileInfo] = field(default_factory=list)   # Raw_vessel_data2
+    staging_archives: list[FileInfo] = field(default_factory=list)   # Raw_vessel_data2 (older systems)
+    staging_day: FileInfo | None = None                              # Raw_vessel_data2/<vessel>/<day>/ unpacked
     processed_file: FileInfo | None = None                           # vessel_data6/.../improveddata<day>.mat
     backlog_days: list[date] = field(default_factory=list)           # older days still in an inbox
+    backlog_in_landing: bool = False                                 # oldest backlog sits in FTP_VESSEL_DATA
     folder_found: bool = True                                        # vessel has a folder on the shares
     db_processed: bool = False                                       # general / SOV_general / timeTraces present
     has_recorded_code: int | None = None                             # operationsStats.hasRecordedCode

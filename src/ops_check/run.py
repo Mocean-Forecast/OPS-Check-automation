@@ -22,7 +22,7 @@ from .notify import teams
 from .report.card import render_card, render_priority_alert, webhook_payload
 from .report.diff import diff_runs
 from .report.message import build_message, priority_alerts, render_text
-from .sources.files import ShareScan, SystemFiles, scan_shares
+from .sources.files import ShareScan, SystemFiles, norm, scan_shares
 from . import registry_config
 from .sources.mongo import DayData, MongoSource, registry_synced_at, vessel_from_doc
 from .store import RunStore
@@ -34,7 +34,7 @@ class Sources(Protocol):
     def vessels(self) -> list[Vessel]: ...
     def registry_synced_at(self) -> datetime | None: ...
     def day_data(self, vessels: list[Vessel], day: date) -> DayData: ...
-    def scan(self, day: date) -> ShareScan: ...
+    def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str]) -> ShareScan: ...
 
 
 class LiveSources:
@@ -51,8 +51,9 @@ class LiveSources:
     def day_data(self, vessels: list[Vessel], day: date) -> DayData:
         return self.mongo.day_data(vessels, day)
 
-    def scan(self, day: date) -> ShareScan:
-        return scan_shares(self.s.landing_dir, self.s.staging_dir, self.s.processed_dir, {day})
+    def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str]) -> ShareScan:
+        return scan_shares(self.s.landing_dir, self.s.staging_dir, self.s.processed_dir,
+                           wanted, day, ignored=ignored)
 
 
 class FixtureSources:
@@ -80,26 +81,46 @@ class FixtureSources:
             transit_gaps={int(k): tuple(v) for k, v in d.get("transit_gaps", {}).items()},
         )
 
-    def scan(self, day: date) -> ShareScan:
-        systems: dict[str, SystemFiles] = {}
+    def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str]) -> ShareScan:
+        """Fixture `files` are keyed by folder name, like the shares."""
         files = self.data.get("files", {})
-        for folder in files.get("folders", []):
-            systems.setdefault(folder, SystemFiles()).has_folder = True
-        for part in ("landing", "staging"):
-            for system, entries in files.get(part, {}).items():
-                sf = systems.setdefault(system, SystemFiles())
-                sf.has_folder = True
+        by_folder: dict[str, SystemFiles] = {}
+        display: dict[str, str] = {}
+
+        def get(folder: str) -> SystemFiles:
+            display.setdefault(norm(folder), folder)
+            return by_folder.setdefault(norm(folder), SystemFiles())
+
+        for share, folders in (("landing", files.get("landing", {})), ("staging", files.get("staging", {}))):
+            for folder, entries in folders.items():
+                sf = get(folder)
+                sf.shares.add(share)
                 for e in entries:
-                    getattr(sf, part).append(FileInfo(e["name"], date.fromisoformat(e["day"]),
-                                                      datetime.fromisoformat(e["modified"])))
-        for system, days in files.get("processed", {}).items():
-            sf = systems.setdefault(system, SystemFiles())
-            sf.has_folder = True
+                    getattr(sf, share).append(FileInfo(e["name"], date.fromisoformat(e["day"]),
+                                                       datetime.fromisoformat(e["modified"])))
+        for folder, entries in files.get("staging_days", {}).items():
+            sf = get(folder)
+            sf.shares.add("staging")
+            for e in entries:
+                d = date.fromisoformat(e["day"])
+                sf.staging_days[d] = FileInfo(f"{folder}/{e['day']}", d, datetime.fromisoformat(e["modified"]))
+        for folder, days in files.get("processed", {}).items():
+            sf = get(folder)
+            sf.shares.add("processed")
             for dstr in days:
                 d = date.fromisoformat(dstr)
-                sf.processed[d] = FileInfo(f"{system}/processeddata/improveddata{dstr}.mat", d,
+                sf.processed[d] = FileInfo(f"{folder}/processeddata/improveddata{dstr}.mat", d,
                                            datetime(d.year, d.month, d.day, tzinfo=timezone.utc))
-        return ShareScan(systems, [])
+        for folder in files.get("folders", []):
+            get(folder).shares.add("processed")
+
+        systems = {}
+        for key, names in wanted.items():
+            hit = next((by_folder[norm(n)] for n in names if norm(n) in by_folder), SystemFiles())
+            systems[norm(key)] = hit
+        matched = {norm(n) for ns in wanted.values() for n in ns} | {norm(n) for n in ignored}
+        unknown = sorted(display[f] for f, sf in by_folder.items() if f not in matched and sf.landing)
+        return ShareScan(systems, [], set(by_folder), unknown)
 
 
 @dataclass
@@ -130,8 +151,9 @@ def execute(s: Settings, sources: Sources, slot: str, now: datetime | None = Non
     # Off-hire vessels are not checked and not counted anywhere; only their total is shown (D25).
     vessels = [v for v in fleet if v.on_hire]
     off_hire = [v for v in fleet if not v.on_hire]
-    ignored = {v.system for v in all_vessels if v.system and (is_excluded(v) or not v.on_hire)}
-    c = collect(vessels, day, sources.scan(day), sources.day_data(vessels, day),
+    ignored = {n for v in all_vessels if is_excluded(v) or not v.on_hire for n in v.folder_names}
+    scan = sources.scan(day, {v.key: v.folder_names for v in vessels}, ignored)
+    c = collect(vessels, day, scan, sources.day_data(vessels, day),
                 sources.registry_synced_at(), now, s, ignored_systems=ignored)
     c.warnings += config_warnings
     results = [evaluate(v, c.evidence[v.key], day, now, s) for v in vessels]

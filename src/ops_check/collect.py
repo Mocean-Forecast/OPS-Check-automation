@@ -19,12 +19,14 @@ class Collected:
 
 
 def build_evidence(v: Vessel, day: date, scan: ShareScan, dd: DayData) -> Evidence:
-    sf = scan.systems.get(v.system or "", SystemFiles())
+    sf = scan.get(v.key)
     ev = Evidence(
         landing_archives=[a for a in sf.landing if a.day == day],
         staging_archives=[a for a in sf.staging if a.day == day],
+        staging_day=sf.staging_days.get(day),
         processed_file=sf.processed.get(day),
         backlog_days=sorted({a.day for a in sf.landing + sf.staging if a.day < day}),
+        backlog_in_landing=any(a.day < day for a in sf.landing),
         folder_found=sf.has_folder,
         db_processed=dd.processed(v),
         dpr=dd.dpr(v),
@@ -48,11 +50,14 @@ def run_warnings(vessels: list[Vessel], scan: ShareScan, synced_at: datetime | N
         w.append(f"Registry not synced since {synced_at.astimezone().strftime('%d/%m %H:%M')}")
     for root in scan.missing_roots:
         w.append(f"Share not reachable: {root}")
-    known_systems = {v.system for v in vessels if v.system} | (ignored_systems or set())
-    extra = sorted(scan.folders() - known_systems)
-    if extra:
-        w.append(f"{len(extra)} folder(s) on shares not in registry: {', '.join(extra[:8])}"
-                 + (" …" if len(extra) > 8 else ""))
+    if scan.unknown_active:
+        u = scan.unknown_active
+        w.append(f"Archives arriving for {len(u)} folder(s) not matched to an on-hire vessel: "
+                 f"{', '.join(u[:8])}" + (" …" if len(u) > 8 else ""))
+    no_folder = [v.name for v in vessels if v.system and not scan.get(v.key).has_folder]
+    if no_folder:
+        w.append(f"{len(no_folder)} on-hire vessel(s) without a folder on any share: "
+                 f"{', '.join(no_folder[:8])}" + (" …" if len(no_folder) > 8 else ""))
     no_system = [v.name for v in vessels if v.on_hire and not v.system]
     if no_system:
         w.append(f"{len(no_system)} on-hire vessel(s) without system name in registry: "

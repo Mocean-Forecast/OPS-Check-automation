@@ -149,24 +149,36 @@ def test_dpr_runs_alongside_offline():
 
 def test_scan_shares(tmp_path):
     land, stage, proc = tmp_path / "FTP_VESSEL_DATA", tmp_path / "Raw_vessel_data2", tmp_path / "vessel_data6"
-    (land / "NR_Rebellion").mkdir(parents=True)
-    (land / "NR_Rebellion" / "NR_Rebellion_2026-10-04_1.7z.001").write_bytes(b"x")
-    (stage / "NR_Rebellion" / "quarantine").mkdir(parents=True)
-    (stage / "NR_Rebellion" / "quarantine" / "NR_Rebellion_2026-10-01_1.7z.001").write_bytes(b"x")
-    (stage / "NR_Rebellion" / "notes.txt").write_text("ignore me")
-    (proc / "MO4-70" / "processeddata").mkdir(parents=True)
-    (proc / "MO4-70" / "processeddata" / "improveddata2026-10-04.mat").write_bytes(b"x")
+    (land / "HST_Hudson" / "quarantaine").mkdir(parents=True)
+    (land / "HST_Hudson" / "HST Hudson_2026-10-04_1.7z.001").write_bytes(b"x")        # space in prefix
+    (land / "HST_Hudson" / "HST Hudson_2026-09-01_1.7z.001").write_bytes(b"x")        # outside lookback
+    (land / "HST_Hudson" / "quarantaine" / "HST Hudson_2026-10-03_1.7z.001").write_bytes(b"x")
+    (land / "Mystery_Boat").mkdir()
+    (land / "Mystery_Boat" / "Mystery Boat_2026-10-04_1.7z.001").write_bytes(b"x")
+    (stage / "windcat_41" / "2026-10-04" / "AISreader").mkdir(parents=True)          # lower case folder
+    (stage / "windcat_41" / "tempUnzip").mkdir()
+    (stage / "#recycle").mkdir()
+    (proc / "Windcat_41" / "processeddata").mkdir(parents=True)
+    (proc / "Windcat_41" / "processeddata" / "improveddata2026-10-04.mat").write_bytes(b"x")
 
-    scan = scan_shares(land, stage, proc, {DAY})
-    assert [a.day for a in scan.systems["NR_Rebellion"].landing] == [DAY]
-    assert scan.systems["NR_Rebellion"].staging == []  # quarantine + non-archives ignored
-    assert DAY in scan.systems["MO4-70"].processed
-    assert scan.folders() == {"NR_Rebellion", "MO4-70"}
+    scan = scan_shares(land, stage, proc, {"HST_Hudson": ["HST_Hudson"], "Windcat_41": ["Windcat_41"]}, DAY)
+    hst, wc = scan.get("HST_Hudson"), scan.get("Windcat_41")
+    assert [a.day for a in hst.landing] == [DAY]           # quarantaine + old archive ignored
+    assert DAY in wc.staging_days and DAY in wc.processed  # matched case-insensitively
+    assert wc.shares == {"staging", "processed"}
+    assert scan.unknown_active == ["Mystery_Boat"]
 
 
 def test_scan_reports_missing_share(tmp_path):
-    scan = scan_shares(tmp_path / "nope", None, None, {DAY})
+    scan = scan_shares(tmp_path / "nope", None, None, {}, DAY)
     assert scan.missing_roots == [str(tmp_path / "nope")]
+
+
+def test_unpacked_day_waits_then_stuck():
+    ev = Evidence(staging_day=archive(3))
+    assert evaluate(vessel(), ev, DAY, MORNING, S).diagnosis == Diagnosis.IN_TRANSIT
+    ev = Evidence(staging_day=archive(5, RECHECK))
+    assert evaluate(vessel(), ev, DAY, RECHECK, S).diagnosis == Diagnosis.STUCK_PROCESSING
 
 
 # ---------------------------------------------------------------- end to end on the fixture
@@ -181,14 +193,14 @@ def test_fixture_morning(tmp_path):
     diag = {r["vessel"]["name"]: r["diagnosis"] for r in out.run["results"]}
     assert "MO4 test rig" not in diag  # D25: client MO4 excluded
     assert diag == {
-        "Windcat 41": "ok", "NOS Bringer": "offline", "HST Hudson": "stuck_processing",
+        "Windcat 41": "ok", "NOS Bringer": "offline", "HST Hudson": "stuck_mover",
         "Bloemgracht": "data_issue", "Grampian Tyne": "ok", "Offshore Waddenzee": "in_transit",
         "Bokalift 2": "known", "Grace Darling": "not_loaded",
         "Alison Kay": "offline", "MO8": "ok",
         "Alison Mantripp": "known",   # isDaughterCraft (MATLAB array value)
     }  # off-hire (Rachel Parsons, Aberdaron Bay, Old Timer) not evaluated at all
     assert out.run["warnings"] and any("Windcat Dorothea" in w for w in out.run["warnings"])
-    assert any("Old_Vessel_X" in w for w in out.run["warnings"])
+    assert any("Old_Vessel_X" in w for w in out.run["warnings"])  # archives arriving, no vessel
     assert not any("MO4-70" in w for w in out.run["warnings"])
     assert len(out.priority_cards) == 1  # Bloemgracht (Waddenzee only in transit at 07:30)
     assert out.card["type"] == "AdaptiveCard"

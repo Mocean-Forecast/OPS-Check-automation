@@ -10,6 +10,9 @@ config/vessels.toml:
     reason = "not in use"
     until  = 2026-12-31            # optional; after this date the vessel is checked again
 
+    [folders]                      # extra folder names when a share uses a different name
+    "Bloemgracht" = ["spliethoff_bloemgracht"]
+
 Daughtercraft and off-hire come from the collection (isDaughterCraft, onHire) and need no entry.
 """
 
@@ -43,6 +46,7 @@ class VesselConfig:
     known: dict[str, KnownEntry] = field(default_factory=dict)
     problems: list[str] = field(default_factory=list)  # entries that matched no vessel
     labels: dict[str, str] = field(default_factory=dict)  # normalised key -> name as written
+    folders: dict[str, list[str]] = field(default_factory=dict)  # vessel -> extra folder names
 
 
 def _norm(s: Any) -> str:
@@ -55,6 +59,9 @@ def load(path: Path) -> VesselConfig:
     data = tomllib.loads(path.read_text())
     cfg = VesselConfig(priority={_norm(p) for p in data.get("priority", [])})
     cfg.labels = {_norm(p): str(p) for p in data.get("priority", [])}
+    for vessel, names in (data.get("folders") or {}).items():
+        cfg.folders[_norm(vessel)] = [str(n) for n in (names if isinstance(names, list) else [names])]
+        cfg.labels[_norm(vessel)] = str(vessel)
     for e in data.get("known", []):
         if "vessel" not in e or "status" not in e:
             cfg.problems.append(f"config entry without vessel/status: {e}")
@@ -76,6 +83,9 @@ def apply(vessels: list[Vessel], cfg: VesselConfig) -> list[str]:
         if ids & cfg.priority:
             v.priority = True
             used |= ids & cfg.priority
+        for k in ids & set(cfg.folders):
+            v.folder_aliases = cfg.folders[k]
+            used.add(k)
         hit = next((k for k in ids if k in cfg.known), None)
         if hit:
             e = cfg.known[hit]
@@ -83,7 +93,7 @@ def apply(vessels: list[Vessel], cfg: VesselConfig) -> list[str]:
             used.add(hit)
         elif v.daughtercraft and not v.status:
             v.status = "daughtercraft"
-    unmatched = sorted((cfg.priority | set(cfg.known)) - used)
+    unmatched = sorted((cfg.priority | set(cfg.known) | set(cfg.folders)) - used)
     warnings = list(cfg.problems)
     if unmatched:
         warnings.append(f"config/vessels.toml entries matching no vessel: {', '.join(cfg.labels.get(u, u) for u in unmatched)}")

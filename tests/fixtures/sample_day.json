@@ -239,7 +239,6 @@
   },
   "files": {
     "folders": [
-      "WC_41",
       "NOS_Bringer",
       "HST_Hudson",
       "Bloemgracht",
@@ -250,40 +249,38 @@
       "MO8",
       "MO4-70",
       "Old_Vessel_X",
-      "Alison_Mantripp"
+      "Alison_Mantripp",
+      "wc_41"
     ],
     "landing": {
       "OFF_Waddenzee": [
         {
-          "name": "OFF_Waddenzee_2026-10-04_1.7z.001",
+          "name": "Offshore Waddenzee_2026-10-04_1.7z.001",
           "day": "2026-10-04",
           "modified": "2026-10-05T03:30:00+00:00"
         }
-      ]
-    },
-    "staging": {
+      ],
+      "Old_Vessel_X": [
+        {
+          "name": "Old Vessel X_2026-10-04_1.7z.001",
+          "day": "2026-10-04",
+          "modified": "2026-10-05T01:00:00+00:00"
+        }
+      ],
       "HST_Hudson": [
         {
-          "name": "HST_Hudson_2026-09-26_1.7z.001",
-          "day": "2026-09-26",
-          "modified": "2026-09-27T02:00:00+00:00"
+          "name": "HST Hudson_2026-09-30_1.7z.001",
+          "day": "2026-09-30",
+          "modified": "2026-10-01T00:06:00+00:00"
         },
         {
-          "name": "HST_Hudson_2026-09-27_1.7z.001",
-          "day": "2026-09-27",
-          "modified": "2026-09-28T02:00:00+00:00"
-        },
-        {
-          "name": "HST_Hudson_2026-10-04_1.7z.001",
-          "day": "2026-10-04",
-          "modified": "2026-10-05T02:00:00+00:00"
+          "name": "HST Hudson_2026-09-30_1.7z.002",
+          "day": "2026-09-30",
+          "modified": "2026-10-01T00:06:00+00:00"
         }
       ]
     },
     "processed": {
-      "WC_41": [
-        "2026-10-04"
-      ],
       "Bloemgracht": [
         "2026-10-04"
       ],
@@ -295,7 +292,19 @@
       ],
       "MO8": [
         "2026-10-04"
+      ],
+      "wc_41": [
+        "2026-10-04"
       ]
+    },
+    "staging_days": {
+      "hst_hudson": [
+        {
+          "day": "2026-09-29",
+          "modified": "2026-09-30T02:00:00+00:00"
+        }
+      ],
+      "grampian_tyne_raw": []
     }
   }
 }

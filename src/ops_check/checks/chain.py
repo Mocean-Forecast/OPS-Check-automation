@@ -85,16 +85,17 @@ def arrival_and_processing(v: Vessel, ev: Evidence, day: date, now: datetime,
         return Diagnosis.NOT_LOADED, [_f(v, day, Stage.PROCESSED, "db_load", Severity.FAIL, Owner.DEV,
                                          "processed .mat present, not loaded into MongoDB",
                                          file=ev.processed_file.path)]
-    if ev.staging_archives:
-        oldest = min(a.modified for a in ev.staging_archives)
+    staged = ev.staging_archives + ([ev.staging_day] if ev.staging_day else [])
+    if staged:
+        oldest = min(a.modified for a in staged)
         age = _hours(now - oldest)
         if now >= deadline:
             return Diagnosis.STUCK_PROCESSING, [_f(
                 v, day, Stage.PROCESSED, "processing", Severity.FAIL, Owner.DEV,
-                f"archive waiting in Raw_vessel_data2 for {age} h, not processed",
-                files=[a.path for a in ev.staging_archives], age_h=age)]
+                f"unpacked in Raw_vessel_data2 {age} h ago, not processed",
+                files=[a.path for a in staged], age_h=age)]
         return Diagnosis.IN_TRANSIT, [_f(v, day, Stage.PROCESSED, "processing", Severity.INFO, Owner.DEV,
-                                         f"archive in Raw_vessel_data2 ({age} h), awaiting processing",
+                                         f"in Raw_vessel_data2 ({age} h), awaiting processing",
                                          age_h=age)]
     if ev.landing_archives:
         oldest = min(a.modified for a in ev.landing_archives)
@@ -171,11 +172,16 @@ def evaluate(v: Vessel, ev: Evidence, day: date, now: datetime, s: Settings,
     if ev.backlog_days:
         oldest = min(ev.backlog_days)
         n = (day - oldest).days + 1
+        where = "FTP_VESSEL_DATA" if ev.backlog_in_landing else "Raw_vessel_data2"
         findings.append(_f(v, day, Stage.PROCESSED, "backlog", Severity.FAIL, Owner.DEV,
-                           f"{len(ev.backlog_days)} older day(s) still in inbox, oldest "
+                           f"{len(ev.backlog_days)} older day(s) still in {where}, oldest "
                            f"{oldest.isoformat()} (day {n})",
                            days=[d.isoformat() for d in sorted(ev.backlog_days)]))
-        if not diagnosis.needs_action:
-            diagnosis = Diagnosis.STUCK_PROCESSING
+        # An older day stuck in an inbox explains why this day is missing: it's a pipeline fault,
+        # not an offline vessel.
+        if diagnosis in (Diagnosis.OFFLINE, Diagnosis.OK, Diagnosis.IN_TRANSIT):
+            if diagnosis == Diagnosis.OFFLINE:
+                findings = [f for f in findings if f.check != "raw_arrival"]
+            diagnosis = Diagnosis.STUCK_MOVER if ev.backlog_in_landing else Diagnosis.STUCK_PROCESSING
 
     return VesselResult(v, day, diagnosis, findings + dpr_findings, dpr_status)

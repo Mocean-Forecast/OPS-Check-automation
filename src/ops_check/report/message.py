@@ -46,6 +46,7 @@ class Message:
     warnings: list[str] = field(default_factory=list)
     summary: str | None = None
     off_hire: int = 0
+    excluded: int = 0
 
 
 def _key(r: dict[str, Any]) -> str:
@@ -75,6 +76,7 @@ def build_message(run: dict[str, Any], diff: RunDiff | None = None,
         subtitle=(f"{len(results)} on hire · {checked} checked · {len(action)} need action · "
                   f"{len(known)} known"),
         off_hire=int(run.get("off_hire_count") or 0),
+        excluded=int(run.get("excluded_count") or 0),
         warnings=list(run.get("warnings") or []),
         summary=summary,
     )
@@ -115,6 +117,13 @@ def _info_text(r: dict[str, Any]) -> str:
     return next((f["message"] for f in r["findings"] if f["stage"] in (2, 3)), "in transit")
 
 
+def footer(m: Message) -> str:
+    parts = [f"Off-hire, not checked: {m.off_hire}"]
+    if m.excluded:
+        parts.append(f"excluded test systems: {m.excluded}")
+    return " · ".join(parts)
+
+
 def priority_alerts(m: Message) -> list[Item]:
     """Priority vessels needing action get their own alert at every run (D8)."""
     return [i for i in m.action if i.priority]
@@ -143,6 +152,6 @@ def render_text(m: Message) -> str:
         lines.append(f"Registry ({len(m.registry)}): " + " · ".join(m.registry))
     for w in m.warnings:
         lines.append(f"⚠ {w}")
-    if m.off_hire:
-        lines += ["", f"Off-hire, not checked: {m.off_hire}"]
+    if m.off_hire or m.excluded:
+        lines += ["", footer(m)]
     return "\n".join(lines)

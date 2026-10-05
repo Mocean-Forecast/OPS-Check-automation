@@ -206,7 +206,7 @@ def test_fixture_morning(tmp_path):
     assert out.card["type"] == "AdaptiveCard"
     # off-hire vessels are counted, not listed
     assert "11 on hire · 9 checked · 5 need action · 2 known" in out.text
-    assert out.text.rstrip().endswith("Off-hire, not checked: 3")
+    assert out.text.rstrip().endswith("Off-hire, not checked: 3 · excluded test systems: 1")
     assert "Aberdaron" not in out.text and "Rachel Parsons" not in out.text
     assert not any("Rachel_Parsons" in w or "Aberdaron_Bay" in w for w in out.run["warnings"])
 
@@ -242,3 +242,14 @@ def test_vessel_from_real_doc():
                                                               "Greater Gabbard North-East")
     assert v.clients == ["SSE", "MO4"]
     assert registry_synced_at([doc], S) == datetime(2026, 10, 1, 12, 20, 3, tzinfo=timezone.utc)
+
+
+def test_client_mo4_is_checked_unless_excluded(tmp_path):
+    """HST Hudson has client "MO4" and is a real vessel: only the config exclude list skips vessels."""
+    from ops_check import registry_config
+    hst = vessel(name="HST Hudson", system="HST_Hudson", client="MO4", clients=["MO4"])
+    rig = vessel(name="MO4 test rig", system="MO4_test_wc47", client="MO4", clients=["MO4"])
+    cfg_file = tmp_path / "v.toml"
+    cfg_file.write_text('exclude = ["MO4_test_wc47"]\n')
+    registry_config.apply([hst, rig], registry_config.load(cfg_file))
+    assert (hst.excluded, rig.excluded) == (False, True)

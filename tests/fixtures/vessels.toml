@@ -1,3 +1,4 @@
+exclude = ["MO4-70"]
 priority = ["Offshore Waddenzee", "Bloemgracht", "Windcat Dorothea"]
 
 [[known]]

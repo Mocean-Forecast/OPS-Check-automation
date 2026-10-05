@@ -5,6 +5,10 @@
 # Priority vessels get their own alert when they need action (D8).
 priority = ["Windcat Dorothea", "Offshore Waddenzee", "Bloemgracht"]
 
+# Never checked: MO4 test / demo systems. (Client "MO4" alone does NOT exclude a vessel:
+# HST Hudson has client MO4 and is a real vessel.)
+exclude = ["MO4_test_wc47"]
+
 # Extra folder names, for vessels whose folder on a share differs from `vesselname`.
 # Matching ignores case and treats spaces/hyphens as underscores. All matching folders are merged.
 [folders]

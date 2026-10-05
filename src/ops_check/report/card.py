@@ -9,7 +9,7 @@ from __future__ import annotations
 from typing import Any
 
 from .diff import Change
-from .message import Item, Message
+from .message import Item, Message, footer
 
 _COLOR = {Change.NEW: "Attention", Change.CHANGED: "Warning", Change.RESOLVED: "Good", Change.SAME: "Default"}
 _TAG = {Change.NEW: "NEW · ", Change.CHANGED: "CHANGED · ", Change.RESOLVED: "RESOLVED · ", Change.SAME: ""}
@@ -65,8 +65,8 @@ def render_card(m: Message) -> dict[str, Any]:
                           spacing="Small", color="Warning"))
     for w in m.warnings:
         body.append(_text(f"⚠ {w}", spacing="Small", color="Warning"))
-    if m.off_hire:
-        body.append(_text(f"Off-hire, not checked: {m.off_hire}", isSubtle=True, size="Small",
+    if m.off_hire or m.excluded:
+        body.append(_text(footer(m), isSubtle=True, size="Small",
                           spacing="Large", separator=True))
 
     return {

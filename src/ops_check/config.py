@@ -49,7 +49,7 @@ class Settings:
     mongo_uri: str = ""
     mongo_db: str = "bmo_dataviewer"
     fields: VesselFields = field(default_factory=VesselFields)
-    excluded_clients: tuple[str, ...] = ("MO4",)
+    excluded_clients: tuple[str, ...] = ()  # was ("MO4",): that hid HST Hudson (client MO4); use `exclude` in config/vessels.toml
     vessels_config: Path = Path("config/vessels.toml")
 
     landing_dir: Path | None = None

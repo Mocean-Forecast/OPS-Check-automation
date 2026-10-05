@@ -72,6 +72,7 @@ class Vessel:
     daughtercraft: bool = False
     site: str | None = None  # forecast area for v2 (D27)
     folder_aliases: list[str] = field(default_factory=list)  # extra folder names on the shares (config)
+    excluded: bool = False  # on the `exclude` list in config/vessels.toml (test systems etc.)
 
     @property
     def folder_names(self) -> list[str]:
@@ -156,6 +157,7 @@ class RunReport:
     warnings: list[str] = field(default_factory=list)  # registry stale, unknown folders, ...
     check_version: str = ""
     off_hire_count: int = 0  # off-hire vessels: not checked, not counted, total only (D25)
+    excluded_count: int = 0  # vessels on the config `exclude` list
 
     def to_dict(self) -> dict[str, Any]:
         def conv(o: Any) -> Any:

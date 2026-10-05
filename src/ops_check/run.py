@@ -23,7 +23,8 @@ from .report.card import render_card, render_priority_alert, webhook_payload
 from .report.diff import diff_runs
 from .report.message import build_message, priority_alerts, render_text
 from .sources.files import ShareScan, SystemFiles, scan_shares
-from .sources.mongo import DayData, MongoSource, vessel_from_doc
+from . import registry_config
+from .sources.mongo import DayData, MongoSource, registry_synced_at, vessel_from_doc
 from .store import RunStore
 
 log = logging.getLogger("ops_check")
@@ -65,8 +66,7 @@ class FixtureSources:
         return [vessel_from_doc(d, self.s) for d in self.data["vessels"]]
 
     def registry_synced_at(self) -> datetime | None:
-        v = self.data.get("registry_synced_at")
-        return datetime.fromisoformat(v) if v else None
+        return registry_synced_at(self.data["vessels"], self.s)
 
     def day_data(self, vessels: list[Vessel], day: date) -> DayData:
         d = self.data.get("day_data", {})
@@ -121,10 +121,16 @@ def execute(s: Settings, sources: Sources, slot: str, now: datetime | None = Non
 
     all_vessels = sources.vessels()
     excluded = set(s.excluded_clients)
-    vessels = [v for v in all_vessels if v.client not in excluded]  # D25: everything except MO4
+
+    def is_excluded(v: Vessel) -> bool:
+        return bool(excluded & set(v.clients))
+
+    vessels = [v for v in all_vessels if not is_excluded(v)]  # D25: everything except MO4
+    config_warnings = registry_config.apply(vessels, registry_config.load(s.vessels_config))
     c = collect(vessels, day, sources.scan(day), sources.day_data(vessels, day),
                 sources.registry_synced_at(), now, s,
-                ignored_systems={v.system for v in all_vessels if v.system and v.client in excluded})
+                ignored_systems={v.system for v in all_vessels if v.system and is_excluded(v)})
+    c.warnings += config_warnings
     results = [evaluate(v, c.evidence[v.key], day, now, s) for v in vessels]
     report = RunReport(now, slot, day, results, c.warnings, CHECK_VERSION)
     run = report.to_dict()

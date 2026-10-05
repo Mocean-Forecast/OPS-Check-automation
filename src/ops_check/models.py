@@ -68,6 +68,9 @@ class Vessel:
     status_owner: str | None = None
     status_expiry: date | None = None
     priority: bool = False
+    clients: list[str] = field(default_factory=list)
+    daughtercraft: bool = False
+    site: str | None = None  # forecast area for v2 (D27)
 
     @property
     def key(self) -> str:

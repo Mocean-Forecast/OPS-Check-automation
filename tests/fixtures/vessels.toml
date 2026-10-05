@@ -1,0 +1,12 @@
+priority = ["Offshore Waddenzee", "Bloemgracht", "Windcat Dorothea"]
+
+[[known]]
+vessel = "Bokalift 2"
+status = "demob"
+reason = "not in use"
+until  = 2026-12-31
+
+[[known]]
+vessel = "Grace_Darling"   # by vesselname
+status = "DC"
+until  = 2026-09-30        # expired -> checked again

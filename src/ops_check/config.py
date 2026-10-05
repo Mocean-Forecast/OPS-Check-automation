@@ -27,20 +27,21 @@ def _time(value: str) -> time:
 
 @dataclass(frozen=True)
 class VesselFields:
-    """Where each registry attribute lives in the `vessels` collection (D13)."""
+    """Where each attribute lives in the `vessels` collection (D13: existing fields only).
+
+    Known-case status (demob, tablet-only, ...) and priority are not in the collection;
+    they come from config/vessels.toml in this repo.
+    """
 
     mmsi: str = "mmsi"
     name: str = "nicename"
     operations_class: str = "operationsClass"
     client: str = "client"
     on_hire: str = "onHire"
-    system: str = "systemName"
-    status: str = "opsStatus"
-    status_reason: str = "opsStatusReason"
-    status_owner: str = "opsStatusOwner"
-    status_expiry: str = "opsStatusExpiry"
-    priority: str = "priority"
-    synced_at: str = "lastSynced"
+    system: str = "vesselname"           # folder name on the shares, e.g. Aberdaron_Bay
+    daughtercraft: str = "isDaughterCraft"
+    site: str = "Site"
+    synced_at: str = "lastModified"      # Unix seconds, written by the Excel -> DB sync
 
 
 @dataclass(frozen=True)
@@ -49,6 +50,7 @@ class Settings:
     mongo_db: str = "bmo_dataviewer"
     fields: VesselFields = field(default_factory=VesselFields)
     excluded_clients: tuple[str, ...] = ("MO4",)
+    vessels_config: Path = Path("config/vessels.toml")
 
     landing_dir: Path | None = None
     staging_dir: Path | None = None
@@ -75,20 +77,13 @@ class Settings:
             v = env(key)
             return Path(v) if v else None
 
-        fields = VesselFields(
-            system=env("VESSEL_FIELD_SYSTEM", "systemName"),
-            status=env("VESSEL_FIELD_STATUS", "opsStatus"),
-            status_reason=env("VESSEL_FIELD_STATUS_REASON", "opsStatusReason"),
-            status_owner=env("VESSEL_FIELD_STATUS_OWNER", "opsStatusOwner"),
-            status_expiry=env("VESSEL_FIELD_STATUS_EXPIRY", "opsStatusExpiry"),
-            priority=env("VESSEL_FIELD_PRIORITY", "priority"),
-            synced_at=env("VESSEL_FIELD_SYNCED_AT", "lastSynced"),
-        )
+        fields = VesselFields(system=env("VESSEL_FIELD_SYSTEM", "vesselname"))
         signal = env("TRANSIT_SIGNAL_ID")
         return cls(
             mongo_uri=env("MONGO_URI", ""),
             mongo_db=env("MONGO_DB", "bmo_dataviewer"),
             fields=fields,
+            vessels_config=Path(env("VESSELS_CONFIG", "config/vessels.toml")),
             landing_dir=path("LANDING_DIR"),
             staging_dir=path("STAGING_DIR"),
             processed_dir=path("PROCESSED_DIR"),

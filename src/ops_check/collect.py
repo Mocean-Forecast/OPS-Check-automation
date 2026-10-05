@@ -32,7 +32,7 @@ def build_evidence(v: Vessel, day: date, scan: ShareScan, dd: DayData) -> Eviden
     if v.mmsi is not None:
         stats = dd.ops_stats.get(v.mmsi) or {}
         ev.has_recorded_code = stats.get("hasRecordedCode")
-        ev.clients = list(stats.get("clients") or ([v.client] if v.client else []))
+        ev.clients = list(stats.get("clients") or v.clients)
         gap = dd.transit_gaps.get(v.mmsi)
         if gap:
             ev.transit_max_gap_min, ev.transit_samples = gap

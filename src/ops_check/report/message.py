@@ -64,14 +64,21 @@ def build_message(run: dict[str, Any], diff: RunDiff | None = None,
     day = date.fromisoformat(run["data_day"])
     results = run["results"]
 
+    def off_hire(r: dict[str, Any]) -> bool:
+        return any(f["check"] == "expected_status" and f["details"].get("status") == "off-hire"
+                   for f in r["findings"])
+
     action = [r for r in results if r["diagnosis"] in LABEL]
-    known = [r for r in results if r["diagnosis"] == "known"]
-    checked = len(results) - len(known)
+    off = [r for r in results if r["diagnosis"] == "known" and off_hire(r)]
+    known = [r for r in results if r["diagnosis"] == "known" and not off_hire(r)]
+    on_hire = len(results) - len(off)
+    checked = on_hire - len(known)
     slot = "RECHECK" if run["slot"] == "recheck" else "OPS CHECK"
 
     m = Message(
         title=f"{slot} {run_at.strftime('%d/%m/%Y %H:%M')} (data for {day.strftime('%d/%m')})",
-        subtitle=f"{len(results)} vessels · {checked} checked · {len(action)} need action · {len(known)} known",
+        subtitle=(f"{on_hire} on hire · {checked} checked · {len(action)} need action · "
+                  f"{len(known)} known · {len(off)} off-hire not shown"),
         warnings=list(run.get("warnings") or []),
         summary=summary,
     )

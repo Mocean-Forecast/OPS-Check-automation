@@ -17,20 +17,33 @@ from ..datenum import to_datenum
 from ..models import DprInfo, Vessel
 
 
-def _parse_date(v: Any) -> date | None:
-    if v is None or v == "":
-        return None
-    if isinstance(v, datetime):
-        return v.date()
-    if isinstance(v, date):
-        return v
-    try:
-        return date.fromisoformat(str(v)[:10])
-    except ValueError:
-        return None
+def _scalar(v: Any) -> Any:
+    """MATLAB-exported fields can hold {"_ArrayType_": ..., "_ArrayData_": ...} objects or
+    empty arrays instead of plain values. Return the plain value, or None."""
+    if isinstance(v, dict):
+        data = v.get("_ArrayData_")
+        if isinstance(data, list) and len(data) == 1:
+            return data[0]
+        return data if isinstance(data, (int, float, str)) else None
+    if isinstance(v, list):
+        return v[0] if len(v) == 1 else (None if not v else v)
+    return v
+
+
+def _str(v: Any) -> str | None:
+    v = _scalar(v)
+    return str(v).strip() or None if v is not None and not isinstance(v, list) else None
+
+
+def _flag(v: Any) -> bool:
+    v = _scalar(v)
+    return str(v).strip().lower() in ("1", "1.0", "true", "yes")
 
 
 def _parse_dt(v: Any) -> datetime | None:
+    v = _scalar(v)
+    if isinstance(v, (int, float)) and not isinstance(v, bool) and v > 0:
+        return datetime.fromtimestamp(v, timezone.utc)  # Unix seconds (lastModified)
     if isinstance(v, datetime):
         return v if v.tzinfo else v.replace(tzinfo=timezone.utc)
     if isinstance(v, str):
@@ -42,23 +55,35 @@ def _parse_dt(v: Any) -> datetime | None:
     return None
 
 
+def _clients(v: Any) -> list[str]:
+    if isinstance(v, list):
+        return [str(c).strip() for c in v if isinstance(c, (str, int)) and str(c).strip()]
+    s = _str(v)
+    return [s] if s else []
+
+
 def vessel_from_doc(doc: dict[str, Any], s: Settings) -> Vessel:
     f = s.fields
-    prio = doc.get(f.priority)
+    mmsi = _scalar(doc.get(f.mmsi))
+    clients = _clients(doc.get(f.client))
     return Vessel(
         id=str(doc.get("_id", "")),
-        mmsi=doc.get(f.mmsi),
-        name=doc.get(f.name) or "Unknown vessel",
-        system=doc.get(f.system) or None,
-        operations_class=doc.get(f.operations_class),
-        client=doc.get(f.client),
-        on_hire=doc.get(f.on_hire) == 1,
-        status=doc.get(f.status),
-        status_reason=doc.get(f.status_reason),
-        status_owner=doc.get(f.status_owner),
-        status_expiry=_parse_date(doc.get(f.status_expiry)),
-        priority=bool(prio) and str(prio).lower() not in ("0", "false", "no"),
+        mmsi=int(mmsi) if isinstance(mmsi, (int, float)) else None,
+        name=_str(doc.get(f.name)) or "Unknown vessel",
+        system=_str(doc.get(f.system)),
+        operations_class=_str(doc.get(f.operations_class)),
+        client=", ".join(clients) or None,
+        on_hire=_flag(doc.get(f.on_hire)),
+        clients=clients,
+        daughtercraft=_flag(doc.get(f.daughtercraft)),
+        site=_str(doc.get(f.site)),
     )
+
+
+def registry_synced_at(docs: list[dict[str, Any]], s: Settings) -> datetime | None:
+    """Newest `lastModified` over all vessel documents (D14)."""
+    stamps = [d for d in (_parse_dt(doc.get(s.fields.synced_at)) for doc in docs) if d]
+    return max(stamps) if stamps else None
 
 
 @dataclass
@@ -105,14 +130,17 @@ class MongoSource:
 
     # ------------------------------------------------------------ registry
 
+    def _docs(self) -> list[dict[str, Any]]:
+        if not hasattr(self, "_cache"):
+            self._cache = list(self.db["vessels"].find({}))
+        return self._cache
+
     def vessels(self) -> list[Vessel]:
         """All vessels, including excluded clients (filtered in run.execute, D25)."""
-        return [vessel_from_doc(d, self.s) for d in self.db["vessels"].find({})]
+        return [vessel_from_doc(d, self.s) for d in self._docs()]
 
     def registry_synced_at(self) -> datetime | None:
-        f = self.s.fields
-        doc = self.db["vessels"].find_one({f.synced_at: {"$exists": True}}, sort=[(f.synced_at, -1)])
-        return _parse_dt(doc.get(f.synced_at)) if doc else None
+        return registry_synced_at(self._docs(), self.s)
 
     # ------------------------------------------------------------ per day
 

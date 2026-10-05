@@ -172,7 +172,7 @@ def test_scan_reports_missing_share(tmp_path):
 # ---------------------------------------------------------------- end to end on the fixture
 
 def _run(tmp_path, slot, now):
-    s = Settings(results_dir=tmp_path)
+    s = Settings(results_dir=tmp_path, vessels_config=FIXTURE.parent / "vessels.toml")
     return execute(s, FixtureSources(FIXTURE, s), slot, now=now, post=False)
 
 
@@ -185,11 +185,17 @@ def test_fixture_morning(tmp_path):
         "Bloemgracht": "data_issue", "Grampian Tyne": "ok", "Offshore Waddenzee": "in_transit",
         "Bokalift 2": "known", "Grace Darling": "not_loaded", "Rachel Parsons": "known",
         "Alison Kay": "offline", "MO8": "ok",
+        "Alison Mantripp": "known",                     # isDaughterCraft (MATLAB array value)
+        "Aberdaron Bay": "known", "Old Timer": "known",  # off-hire
     }
+    assert out.run["warnings"] and any("Windcat Dorothea" in w for w in out.run["warnings"])
     assert any("Old_Vessel_X" in w for w in out.run["warnings"])
     assert not any("MO4-70" in w for w in out.run["warnings"])
     assert len(out.priority_cards) == 1  # Bloemgracht (Waddenzee only in transit at 07:30)
     assert out.card["type"] == "AdaptiveCard"
+    # off-hire vessels are counted, not listed
+    assert "11 on hire · 9 checked · 5 need action · 2 known · 3 off-hire not shown" in out.text
+    assert "Aberdaron" not in out.text
 
 
 def test_fixture_recheck_marks_changes(tmp_path):
@@ -207,3 +213,19 @@ def test_diff_resolved():
     assert d.change("A") == Change.RESOLVED
     assert d.change("B") == Change.CHANGED
     assert d.change("C") == Change.NEW
+
+
+# ---------------------------------------------------------------- vessels documents (real field names)
+
+def test_vessel_from_real_doc():
+    from ops_check.sources.mongo import registry_synced_at, vessel_from_doc
+    doc = {"_id": "652e4fc311697824daf63761", "mmsi": 235080215, "nicename": "Aberdaron Bay",
+           "vesselname": "Aberdaron_Bay", "operationsClass": "CTV", "client": ["SSE", "MO4"],
+           "onHire": 0, "isDaughterCraft": "1", "Site": "Greater Gabbard North-East",
+           "lastModified": 1790857203,
+           "mothercraft_mmsi": {"_ArrayType_": "double", "_ArraySize_": [0, 0]}}
+    v = vessel_from_doc(doc, S)
+    assert (v.system, v.on_hire, v.daughtercraft, v.site) == ("Aberdaron_Bay", False, True,
+                                                              "Greater Gabbard North-East")
+    assert v.clients == ["SSE", "MO4"]
+    assert registry_synced_at([doc], S) == datetime(2026, 10, 1, 12, 20, 3, tzinfo=timezone.utc)

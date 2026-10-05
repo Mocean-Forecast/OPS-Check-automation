@@ -1,0 +1,15 @@
+# Vessel config that is NOT in the `vessels` collection (D13).
+# Off-hire (onHire) and daughtercraft (isDaughterCraft) come from MongoDB and need no entry here.
+# Vessels can be referred to by nicename, vesselname or MMSI.
+
+# Priority vessels get their own alert when they need action (D8).
+priority = ["Windcat Dorothea", "Offshore Waddenzee", "Bloemgracht"]
+
+# Known cases: expected to be quiet. Shown on the "Known" line instead of as a fault.
+# After `until` the vessel is checked again and flagged as "registry expired".
+#
+# [[known]]
+# vessel = "Bokalift 2"
+# status = "demob"            # demob | tablet-only | no system | off-hire | daughtercraft
+# reason = "not in use"
+# until  = 2026-12-31

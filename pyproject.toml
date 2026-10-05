@@ -9,6 +9,8 @@ description = "Automated MO4 ops check: raw, processed and portal data checks pe
 requires-python = ">=3.10"
 dependencies = [
     "pymongo>=4.6",
+    "dnspython>=2.4",                        # mongodb+srv:// URIs
+    "tomli>=2.0; python_version < '3.11'",   # config/vessels.toml
 ]
 
 [project.optional-dependencies]

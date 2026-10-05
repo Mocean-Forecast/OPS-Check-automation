@@ -19,7 +19,7 @@ Portal Check source review).
 
 | Part | State |
 |---|---|
-| Registry from `vessels` (D13, D25), expiry handling, sync-age warning (D14) | done – field names for the new registry columns are placeholders in `.env` |
+| Registry from the existing `vessels` fields (D13, D25): `vesselname` = folder, `onHire`, `isDaughterCraft`, `lastModified` = sync time (D14); known cases + priority in `config/vessels.toml` | done – `vesselname` = folder name still to confirm |
 | Share scan: landing, staging, processed, backlog, unknown folders (D15, D16) | done |
 | MongoDB reads ported from Sjoerd's portal-api (D10, D11) | done – untested against the live DB |
 | Four-stage chain + DPR side check (D1–D4) | done |
@@ -63,6 +63,7 @@ ops-check watchdog --slot morning
 ```
 src/ops_check/
   config.py           settings from .env
+  registry_config.py  config/vessels.toml: known cases + priority vessels
   models.py           Vessel, Evidence, Finding, Diagnosis, RunReport
   datenum.py          MATLAB datenum <-> date
   sources/mongo.py    MongoDB reads (read-only)

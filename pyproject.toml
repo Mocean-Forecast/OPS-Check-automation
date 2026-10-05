@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ops-check"
+version = "0.1.0"
+description = "Automated MO4 ops check: raw, processed and portal data checks per vessel-day, posted to Teams"
+requires-python = ">=3.10"
+dependencies = [
+    "pymongo>=4.6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+ops-check = "ops_check.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

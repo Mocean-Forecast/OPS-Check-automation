@@ -1,0 +1,58 @@
+{
+  "_comment": "Synthetic sample for data day 2026-10-04. Vessel names are real fleet names, system names and file details are made up to exercise every diagnosis.",
+  "registry_synced_at": "2026-10-05T05:00:00+00:00",
+  "vessels": [
+    {"_id": "v01", "mmsi": 232013243, "nicename": "Windcat 41", "systemName": "WC_41", "operationsClass": "CTV", "client": "Vattenfall", "onHire": 1},
+    {"_id": "v02", "mmsi": 219016663, "nicename": "NOS Bringer", "systemName": "NOS_Bringer", "operationsClass": "CTV", "client": "Vattenfall", "onHire": 1},
+    {"_id": "v03", "mmsi": 232000001, "nicename": "HST Hudson", "systemName": "HST_Hudson", "operationsClass": "CTV", "client": "Vattenfall", "onHire": 1},
+    {"_id": "v04", "mmsi": 246460000, "nicename": "Bloemgracht", "systemName": "Bloemgracht", "operationsClass": "transit", "client": "Spliethoff", "onHire": 1, "priority": 1},
+    {"_id": "v05", "mmsi": 232044767, "nicename": "Grampian Tyne", "systemName": "GR_Tyne", "operationsClass": "OSV", "client": "Northstar", "onHire": 1},
+    {"_id": "v06", "mmsi": 235106183, "nicename": "Offshore Waddenzee", "systemName": "OFF_Waddenzee", "operationsClass": "CTV", "client": "Acta Marine", "onHire": 1, "priority": 1},
+    {"_id": "v07", "mmsi": 209951000, "nicename": "Bokalift 2", "systemName": "Bokalift_2", "operationsClass": "OSV", "client": "Boka", "onHire": 1, "opsStatus": "demob", "opsStatusReason": "not in use", "opsStatusExpiry": "2026-12-31"},
+    {"_id": "v08", "mmsi": 232043489, "nicename": "Grace Darling", "systemName": "Grace_Darling", "operationsClass": "CTV", "client": "Northstar", "onHire": 1, "opsStatus": "DC", "opsStatusExpiry": "2026-09-30"},
+    {"_id": "v09", "mmsi": 232052439, "nicename": "Rachel Parsons", "systemName": "Rachel_Parsons", "operationsClass": "CTV", "client": "Northstar", "onHire": 0},
+    {"_id": "v10", "mmsi": 232048921, "nicename": "Alison Kay", "operationsClass": "CTV", "client": "Northstar", "onHire": 1},
+    {"_id": "v11", "mmsi": 232040897, "nicename": "MO8", "systemName": "MO8", "operationsClass": "CTV", "client": "Vattenfall", "onHire": 1},
+    {"_id": "v99", "mmsi": 999000001, "nicename": "MO4 test rig", "systemName": "MO4-70", "operationsClass": "CTV", "client": "MO4", "onHire": 1}
+  ],
+  "day_data": {
+    "ops_stats": {
+      "232013243": {"hasRecordedCode": 1, "clients": ["Vattenfall"]},
+      "219016663": {"hasRecordedCode": 0},
+      "246460000": {"hasRecordedCode": 1},
+      "232044767": {"hasRecordedCode": 1},
+      "232040897": {"hasRecordedCode": 1}
+    },
+    "general": [232013243, 232040897],
+    "sov_general": [232044767],
+    "ctv_dpr": {
+      "232013243": {"accessDayType": "Full access", "remarks": ""},
+      "219016663": {"accessDayType": "", "remarks": ""},
+      "232040897": {"accessDayType": "", "remarks": ""}
+    },
+    "sov_dpr": {
+      "232044767": {"signedOff": {"amount": 1}, "accessDayType": {"status": "ok"}, "remarks": ""}
+    },
+    "transit_gaps": {"246460000": [95.0, 1310]}
+  },
+  "files": {
+    "folders": ["WC_41", "NOS_Bringer", "HST_Hudson", "Bloemgracht", "GR_Tyne", "OFF_Waddenzee", "Bokalift_2", "Grace_Darling", "MO8", "MO4-70", "Old_Vessel_X"],
+    "landing": {
+      "OFF_Waddenzee": [{"name": "OFF_Waddenzee_2026-10-04_1.7z.001", "day": "2026-10-04", "modified": "2026-10-05T03:30:00+00:00"}]
+    },
+    "staging": {
+      "HST_Hudson": [
+        {"name": "HST_Hudson_2026-09-26_1.7z.001", "day": "2026-09-26", "modified": "2026-09-27T02:00:00+00:00"},
+        {"name": "HST_Hudson_2026-09-27_1.7z.001", "day": "2026-09-27", "modified": "2026-09-28T02:00:00+00:00"},
+        {"name": "HST_Hudson_2026-10-04_1.7z.001", "day": "2026-10-04", "modified": "2026-10-05T02:00:00+00:00"}
+      ]
+    },
+    "processed": {
+      "WC_41": ["2026-10-04"],
+      "Bloemgracht": ["2026-10-04"],
+      "GR_Tyne": ["2026-10-04"],
+      "Grace_Darling": ["2026-10-04"],
+      "MO8": ["2026-10-04"]
+    }
+  }
+}

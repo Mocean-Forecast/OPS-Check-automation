@@ -148,6 +148,7 @@ class RunReport:
     results: list[VesselResult]
     warnings: list[str] = field(default_factory=list)  # registry stale, unknown folders, ...
     check_version: str = ""
+    off_hire_count: int = 0  # off-hire vessels: not checked, not counted, total only (D25)
 
     def to_dict(self) -> dict[str, Any]:
         def conv(o: Any) -> Any:

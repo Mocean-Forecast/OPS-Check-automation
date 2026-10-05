@@ -183,19 +183,20 @@ def test_fixture_morning(tmp_path):
     assert diag == {
         "Windcat 41": "ok", "NOS Bringer": "offline", "HST Hudson": "stuck_processing",
         "Bloemgracht": "data_issue", "Grampian Tyne": "ok", "Offshore Waddenzee": "in_transit",
-        "Bokalift 2": "known", "Grace Darling": "not_loaded", "Rachel Parsons": "known",
+        "Bokalift 2": "known", "Grace Darling": "not_loaded",
         "Alison Kay": "offline", "MO8": "ok",
-        "Alison Mantripp": "known",                     # isDaughterCraft (MATLAB array value)
-        "Aberdaron Bay": "known", "Old Timer": "known",  # off-hire
-    }
+        "Alison Mantripp": "known",   # isDaughterCraft (MATLAB array value)
+    }  # off-hire (Rachel Parsons, Aberdaron Bay, Old Timer) not evaluated at all
     assert out.run["warnings"] and any("Windcat Dorothea" in w for w in out.run["warnings"])
     assert any("Old_Vessel_X" in w for w in out.run["warnings"])
     assert not any("MO4-70" in w for w in out.run["warnings"])
     assert len(out.priority_cards) == 1  # Bloemgracht (Waddenzee only in transit at 07:30)
     assert out.card["type"] == "AdaptiveCard"
     # off-hire vessels are counted, not listed
-    assert "11 on hire · 9 checked · 5 need action · 2 known · 3 off-hire not shown" in out.text
-    assert "Aberdaron" not in out.text
+    assert "11 on hire · 9 checked · 5 need action · 2 known" in out.text
+    assert out.text.rstrip().endswith("Off-hire, not checked: 3")
+    assert "Aberdaron" not in out.text and "Rachel Parsons" not in out.text
+    assert not any("Rachel_Parsons" in w or "Aberdaron_Bay" in w for w in out.run["warnings"])
 
 
 def test_fixture_recheck_marks_changes(tmp_path):

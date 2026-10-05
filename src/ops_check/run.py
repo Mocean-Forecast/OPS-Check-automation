@@ -125,14 +125,17 @@ def execute(s: Settings, sources: Sources, slot: str, now: datetime | None = Non
     def is_excluded(v: Vessel) -> bool:
         return bool(excluded & set(v.clients))
 
-    vessels = [v for v in all_vessels if not is_excluded(v)]  # D25: everything except MO4
-    config_warnings = registry_config.apply(vessels, registry_config.load(s.vessels_config))
+    fleet = [v for v in all_vessels if not is_excluded(v)]  # D25: everything except MO4
+    config_warnings = registry_config.apply(fleet, registry_config.load(s.vessels_config))
+    # Off-hire vessels are not checked and not counted anywhere; only their total is shown (D25).
+    vessels = [v for v in fleet if v.on_hire]
+    off_hire = [v for v in fleet if not v.on_hire]
+    ignored = {v.system for v in all_vessels if v.system and (is_excluded(v) or not v.on_hire)}
     c = collect(vessels, day, sources.scan(day), sources.day_data(vessels, day),
-                sources.registry_synced_at(), now, s,
-                ignored_systems={v.system for v in all_vessels if v.system and is_excluded(v)})
+                sources.registry_synced_at(), now, s, ignored_systems=ignored)
     c.warnings += config_warnings
     results = [evaluate(v, c.evidence[v.key], day, now, s) for v in vessels]
-    report = RunReport(now, slot, day, results, c.warnings, CHECK_VERSION)
+    report = RunReport(now, slot, day, results, c.warnings, CHECK_VERSION, off_hire_count=len(off_hire))
     run = report.to_dict()
     run["posted"] = False
 

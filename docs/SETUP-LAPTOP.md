@@ -78,6 +78,9 @@ ops-check run --slot morning --dry-run
 open out/preview-*-morning.html
 ```
 
+- Progress shows on the way: each step with a clock and its duration, and a bar for the share scan
+  (vessel n of N, the slowest part: ~4 min). Scheduled runs write the same steps to `logs/<date>.log`,
+  one line per vessel with its time. `--quiet` turns it off.
 - The terminal shows the pipeline text and the spot-check list per vessel.
 - The preview is the real Teams card; click the ▸ rows.
 - There must be **no "INCOMPLETE: file shares not reachable" banner**. If there is, step 2 didn't work.

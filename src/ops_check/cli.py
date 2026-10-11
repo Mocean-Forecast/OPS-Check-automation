@@ -31,6 +31,7 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--now", help="pretend the run happens at this local time (ISO)")
     r.add_argument("--fixture", type=Path, help="run from a JSON fixture instead of MongoDB/shares")
     r.add_argument("--dry-run", action="store_true", help="don't post; print the message")
+    r.add_argument("--quiet", action="store_true", help="no progress output")
     r.add_argument("--card", action="store_true", help="with --dry-run: print the Adaptive Card JSON")
     r.add_argument("--preview", type=Path, default=None,
                    help="with --dry-run: write an HTML preview of the card here (default out/preview-<day>-<slot>.html)")
@@ -40,6 +41,10 @@ def main(argv: list[str] | None = None) -> int:
     w.add_argument("--dry-run", action="store_true")
 
     sub.add_parser("test-post", help="post a small test card to the Teams webhook")
+
+    po = sub.add_parser("post", help="re-post the card of a stored run (no new scan)")
+    po.add_argument("--slot", choices=["morning", "recheck"], required=True)
+    po.add_argument("--date", type=date.fromisoformat, help="run date (default: today)")
 
     p.add_argument("--env", type=Path, default=Path(".env"))
     args = p.parse_args(argv)
@@ -68,6 +73,34 @@ def main(argv: list[str] | None = None) -> int:
         print("test card posted")
         return 0
 
+    if args.cmd == "post":
+        from datetime import timedelta
+        from zoneinfo import ZoneInfo as _Z
+
+        from .notify import teams
+        from .report.card import webhook_payload
+        from .report.spot_card import render_ops_card
+        from .store import RunStore
+        store = RunStore(s.results_dir)
+        run_date = args.date or datetime.now(_Z(s.timezone)).date()
+        run = store.load(run_date, args.slot)
+        if run is None:
+            print(f"no stored {args.slot} run for {run_date}")
+            return 1
+        prev = (store.load(run_date, "morning") if args.slot == "recheck" else
+                store.load(run_date - timedelta(days=1), "recheck") or store.load(run_date - timedelta(days=1), "morning"))
+        card = render_ops_card(run, prev)
+        size = len(json.dumps(webhook_payload(card), ensure_ascii=False).encode())
+        try:
+            teams.post(s.teams_webhook_url, webhook_payload(card))
+        except teams.PostError as e:
+            store.mark_posted(run_date, args.slot, False, str(e))
+            print(f"posting failed: {e}")
+            return 1
+        store.mark_posted(run_date, args.slot, True)
+        print(f"posted {args.slot} run of {run_date} ({size / 1000:.1f} KB)")
+        return 0
+
     if args.cmd == "watchdog":
         alert = watchdog(s, args.slot, post=not args.dry_run)
         print(alert or f"{args.slot} run posted – OK")
@@ -79,7 +112,9 @@ def main(argv: list[str] | None = None) -> int:
         if now.tzinfo is None:
             now = now.replace(tzinfo=ZoneInfo(s.timezone))
     sources = FixtureSources(args.fixture, s) if args.fixture else LiveSources(s)
-    out = execute(s, sources, args.slot, now=now, data_day=args.day, post=not args.dry_run)
+    from .progress import Progress
+    out = execute(s, sources, args.slot, now=now, data_day=args.day, post=not args.dry_run,
+                  progress=Progress(enabled=not args.quiet))
     if args.dry_run:
         if args.card:
             print(json.dumps(out.card, indent=2, ensure_ascii=False))

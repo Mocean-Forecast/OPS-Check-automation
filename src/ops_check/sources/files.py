@@ -16,8 +16,11 @@ config/vessels.toml. `quarantaine`, `tempUnzip`, `#recycle` and dot-folders are 
 
 from __future__ import annotations
 
+import os
 import re
+import time
 from dataclasses import dataclass, field
+from typing import Callable
 from datetime import date, datetime, timezone
 from pathlib import Path
 
@@ -48,15 +51,23 @@ def _index(root: Path | None) -> dict[str, Path]:
     return out
 
 
-def _archives(folder: Path, since: date) -> list[FileInfo]:
+def _listing(folder: Path) -> list[os.DirEntry]:
+    """One directory listing. On the SMB shares every extra stat is a network round trip, so
+    callers filter on the name (the date in it) first and only stat what's recent."""
+    with os.scandir(folder) as it:
+        return list(it)
+
+
+def _archives(folder: Path, since: date, entries: list[os.DirEntry] | None = None) -> list[FileInfo]:
     """Archive volumes directly in `folder` for days >= since (sub-folders are ignored)."""
     out: list[FileInfo] = []
-    for p in folder.iterdir():
-        m = _ARCHIVE.match(p.name)
-        if m and p.is_file():
-            d = date.fromisoformat(m["day"])
-            if d >= since:
-                out.append(_info(p, d))
+    for e in entries if entries is not None else _listing(folder):
+        m = _ARCHIVE.match(e.name)
+        if not m:
+            continue
+        d = date.fromisoformat(m["day"])
+        if d >= since and e.is_file():          # date first: old archives are never stat'ed
+            out.append(_info(Path(e.path), d))
     return out
 
 
@@ -89,7 +100,8 @@ class ShareScan:
 
 def scan_shares(landing: Path | None, staging: Path | None, processed: Path | None,
                 wanted: dict[str, list[str]], day: date, lookback_days: int = 14,
-                ignored: set[str] | None = None) -> ShareScan:
+                ignored: set[str] | None = None,
+                progress: Callable[[int, int, str, float], None] | None = None) -> ShareScan:
     """Scan only the folders of the vessels in `wanted` (vessel key -> folder names incl. aliases).
 
     Archives and day folders older than `lookback_days` before `day` are ignored, to keep the
@@ -101,7 +113,9 @@ def scan_shares(landing: Path | None, staging: Path | None, processed: Path | No
     idx = {k: _index(r) for k, r in roots.items()}
     systems: dict[str, SystemFiles] = {}
 
-    for key, names in wanted.items():
+    total = len(wanted)
+    for i, (key, names) in enumerate(wanted.items(), 1):
+        t0 = time.monotonic()
         sf = SystemFiles()
         # A vessel can have several folders on one share (e.g. Brouwersgracht and
         # spliethoff_brouwersgracht in Raw_vessel_data2): merge them all.
@@ -114,13 +128,17 @@ def scan_shares(landing: Path | None, staging: Path | None, processed: Path | No
             if (p := idx["staging"].get(k)) and p not in seen:
                 seen.add(p)
                 sf.shares.add("staging")
-                sf.staging += _archives(p, since)
-                for c in p.iterdir():
-                    if _DAY_DIR.match(c.name) and c.is_dir():
-                        d = date.fromisoformat(c.name)
-                        if d >= since and (d not in sf.staging_days
-                                           or c.stat().st_mtime > sf.staging_days[d].modified.timestamp()):
-                            sf.staging_days[d] = _info(c, d)
+                entries = _listing(p)                     # one listing for archives and day folders
+                sf.staging += _archives(p, since, entries)
+                for c in entries:
+                    if not _DAY_DIR.match(c.name):
+                        continue
+                    d = date.fromisoformat(c.name)
+                    if d < since or not c.is_dir():       # date first: old day folders are never stat'ed
+                        continue
+                    info = _info(Path(c.path), d)
+                    if d not in sf.staging_days or info.modified > sf.staging_days[d].modified:
+                        sf.staging_days[d] = info
             if (p := idx["processed"].get(k)) and p not in seen:
                 seen.add(p)
                 sf.shares.add("processed")
@@ -128,6 +146,8 @@ def scan_shares(landing: Path | None, staging: Path | None, processed: Path | No
                 if f.is_file() and day not in sf.processed:
                     sf.processed[day] = _info(f, day)
         systems[norm(key)] = sf
+        if progress:
+            progress(i, total, key, time.monotonic() - t0)
 
     all_folders = set().union(*(set(i) for i in idx.values())) if idx else set()
     # Landing folders that receive archives but belong to no on-hire vessel (FTP has ~50 folders: cheap).

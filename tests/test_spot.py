@@ -360,3 +360,53 @@ def test_transit_missing_sensor_and_project():
     f = tchecks(_transit({S1: FULL}, expected=[S1, S2], project=False))
     assert "vMRU Cz5-83 (133.733, 0, 19.81) missing" in f["spot_transit_vmru"].message
     assert f["spot_transit_project"].severity.value == "suspect"
+
+
+def test_first_run_with_spot_check_does_not_flood_new():
+    from ops_check.report.spot_card import render_ops_card
+    run = {"run_at": "2026-10-11T07:30:00+02:00", "data_day": "2026-10-10", "slot": "morning", "results": [],
+           "spot": {"issues": [{"vessel": "X", "check": "spot_fuel_margin", "group": "fuel", "message": "Fuel +50%",
+                                "severity": "fail", "tag": "Team OPS", "rows": []}], "blocks": {"X": ["X", "  • Fuel +50%"]}}}
+    old = {"run_at": "2026-10-10T07:30:00+02:00", "data_day": "2026-10-09", "slot": "morning", "results": []}
+    texts = [b.get("text", "") for b in render_ops_card(run, old)["body"]]
+    assert any(t.startswith("First run with the spot check") for t in texts)
+    assert not any(t.startswith("• **X**") for t in texts)
+    texts = [b.get("text", "") for b in render_ops_card(run, dict(old, spot={"issues": []}))["body"]]
+    assert any(t.startswith("• **X** – Fuel +50%") for t in texts)
+
+
+def test_card_fits_teams_limit_on_a_big_day():
+    import json as _j
+    from ops_check.report.spot_card import CARD_BUDGET, render_ops_card
+    issues, blocks = [], {}
+    for n in range(120):
+        v = f"Vessel {n:03d} with a long name"
+        for c in ("spot_weather_empty", "spot_dpr", "spot_fuel_margin"):
+            issues.append({"vessel": v, "check": c, "group": {"spot_dpr": "dpr", "spot_fuel_margin": "fuel"}.get(c, "vf_api"),
+                           "message": f"{c} message with quite a lot of detail for {v}", "severity": "fail",
+                           "tag": "Team OPS", "rows": []})
+        blocks[v] = [v, "  • a", "  • b", "  • c"]
+    run = {"run_at": "2026-10-11T07:30:00+02:00", "data_day": "2026-10-10", "slot": "morning", "results": [],
+           "spot": {"issues": issues, "blocks": blocks}}
+    card = render_ops_card(run, None)
+    assert len(_j.dumps(card, ensure_ascii=False).encode()) <= CARD_BUDGET
+    assert "cut to fit Teams" in _j.dumps(card, ensure_ascii=False)
+
+
+def test_resolved_only_counts_vessels_still_checked():
+    from ops_check.report.spot_card import render_ops_card
+    def res(name, diag, cls="CTV"):
+        return {"vessel": {"name": name, "id": name, "system": name, "priority": False, "operations_class": cls},
+                "diagnosis": diag, "findings": []}
+    prev = {"run_at": "2026-10-10T07:30:00+02:00", "data_day": "2026-10-09", "slot": "morning", "spot": {"issues": []},
+            "results": [res("TEST MO4", "offline"), res("Brouwersgracht", "offline", "transit"), res("Windcat 47", "offline")]}
+    run = {"run_at": "2026-10-11T07:30:00+02:00", "data_day": "2026-10-10", "slot": "morning",
+           "results": [res("Brouwersgracht", "offline", "transit"), res("Windcat 47", "ok")],
+           "spot": {"issues": [{"vessel": "Brouwersgracht", "check": "spot_transit_no_vmru", "group": "transit",
+                                "message": "No vMRU data", "severity": "fail", "tag": "Team OPS", "rows": []}],
+                    "blocks": {"Brouwersgracht": ["Brouwersgracht", "  • No vMRU data"]}}}
+    texts = [t.get("text", "") for b in render_ops_card(run, prev)["body"]
+             for t in ([b] + b.get("items", []))]
+    resolved = [t for t in texts if t.startswith("• **") and "was:" in t]
+    assert resolved == ["• **Windcat 47** – was: No raw data, not synced – No raw data, not synced"]
+    assert not any("Brouwersgracht" in t and "new" in t.lower() for t in texts)

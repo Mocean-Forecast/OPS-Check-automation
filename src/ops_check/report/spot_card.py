@@ -138,7 +138,10 @@ def _issues(run: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
                                            "message": f"{PIPELINE[r['diagnosis']][0]} – {_pipeline_text(r)}",
                                            "tag": PIPELINE[r["diagnosis"]][1].value, "severity": "fail"}
     for i in (run.get("spot") or {}).get("issues", []):
-        if i["group"] != "dpr":
+        if i["check"] == "spot_transit_no_vmru":
+            # transit vessel without data = the same problem as "no raw data" in the pipeline
+            out[f"{i['vessel']}|pipeline"] = i
+        elif i["group"] != "dpr":
             out[f"{i['vessel']}|{i['check']}"] = i
     return out
 
@@ -167,9 +170,17 @@ def render_ops_card(run: dict[str, Any], prev: dict[str, Any] | None = None,
 
     now_i, prev_i = _issues(run), _issues(prev)
     prev_groups = {i["group"] for i in prev_i.values()}
+    # A previous run made before the spot check existed has no spot issues to compare with:
+    # then only pipeline changes count as new (otherwise every spot issue would be "new" once).
+    spot_baseline = prev is not None and "spot" in prev
     new = [i for k, i in now_i.items() if prev is not None and k not in prev_i and i["severity"] == "fail"
+           and (spot_baseline or k.endswith("|pipeline"))
            and not (i["group"] in CAUSES and i["group"] in prev_groups)]
-    resolved = [i for k, i in prev_i.items() if k not in now_i] if prev is not None else []
+    # Resolved = an issue of a vessel that is checked in this run and no longer has it. Vessels that
+    # dropped out of the run (excluded, off hire, known) aren't "resolved", they're just not checked.
+    checked = {_vkey(r) for r in results if r["diagnosis"] != "known"}
+    resolved = ([i for k, i in prev_i.items() if k not in now_i and i["vessel"] in checked]
+                if prev is not None else [])
 
     slot = "RECHECK" if run["slot"] == "recheck" else "OPS CHECK"
     body: list[dict] = [
@@ -204,6 +215,9 @@ def render_ops_card(run: dict[str, Any], prev: dict[str, Any] | None = None,
 
     # 2. what changed
     body.append(_heading("NEW SINCE PREVIOUS RUN"))
+    if prev is not None and not spot_baseline:
+        body.append(_t("First run with the spot check: spot issues are compared from the next run on.",
+                       isSubtle=True, spacing="Small"))
     if prev is None:
         body.append(_t("No previous run to compare with.", isSubtle=True, spacing="Small"))
     elif new:
@@ -213,7 +227,7 @@ def render_ops_card(run: dict[str, Any], prev: dict[str, Any] | None = None,
         body.append(_t("No new issues.", color="Good", spacing="Small"))
     if resolved:
         body += _toggle_row("resolved", [(f"✅ Resolved ({len(resolved)})", {"color": "Good", "width": "stretch"})],
-                            [_t(f"• **{i['vessel']}** – {i['message']}", spacing="None", size="Small")
+                            [_t(f"• **{i['vessel']}** – was: {i['message']}", spacing="None", size="Small")
                              for i in sorted(resolved, key=lambda i: i["vessel"].lower())])
 
     # 3. spot: root causes
@@ -262,20 +276,22 @@ def render_ops_card(run: dict[str, Any], prev: dict[str, Any] | None = None,
         body += _toggle_row(f"s_{key}", [(tag, {"width": "90px"}), (label, {"width": "stretch"}), (summary, {})],
                             detail)
 
-    # 5. everything per vessel: pipeline line first, then the spot bullets
-    per: list[dict] = []
+    # 5. everything per vessel: pipeline line first, then the spot bullets. One text block for all
+    # vessels: a TextBlock per vessel costs ~100 bytes of JSON each, and Teams caps a message at ~28 KB.
     by_name = {_vkey(r): r for r in pipe}
+    per_lines: list[str] = []
     for v in sorted(attention, key=str.lower):
         lines = list(blocks.get(v, [v]))
-        bullets = [l.strip()[2:] for l in lines[1:] if l.strip().startswith("• ")]
+        bullets = [l.strip()[2:].replace(" (Team Data)", "").replace(" (Team OPS)", "")
+                   for l in lines[1:] if l.strip().startswith("• ")]
         if v in by_name:
             r = by_name[v]
-            bullets.insert(0, f"{PIPELINE[r['diagnosis']][0]} – {_pipeline_text(r)} ({PIPELINE[r['diagnosis']][1].value})")
-        per.append(_t(f"**{v}**", size="Small", spacing="Small"))
-        per.append(_t("\n".join(f"- {b}" for b in bullets), size="Small", spacing="None"))
+            bullets.insert(0, f"{PIPELINE[r['diagnosis']][0]} – {_pipeline_text(r)}")
+        per_lines.append(f"**{v}**: " + " · ".join(bullets))
     body.append({"type": "Container", "spacing": "Medium", "separator": True, "items": []})
     body += _toggle_row("all", [(f"All {len(attention)} vessels needing attention, per vessel",
-                                 {"width": "stretch", "weight": "Bolder"})], per)
+                                 {"width": "stretch", "weight": "Bolder"})],
+                        [_t("\n\n".join(per_lines), size="Small", spacing="None")] if per_lines else [])
 
     foot = [f"Known ({len(known)}): " + ", ".join(
         f"{_vkey(r)} ({next((f['message'] for f in r['findings'] if f['check'] == 'expected_status'), '')})"
@@ -290,7 +306,7 @@ def render_ops_card(run: dict[str, Any], prev: dict[str, Any] | None = None,
     off, exc = int(run.get("off_hire_count") or 0), int(run.get("excluded_count") or 0)
     if off or exc:
         foot.append(" · ".join(x for x in (f"Off-hire, not checked: {off}" if off else "",
-                                          f"excluded test systems: {exc}" if exc else "") if x))
+                                          f"excluded: {exc}" if exc else "") if x))
     body.append(_t("\n\n".join(x for x in foot if x), isSubtle=True, size="Small", spacing="Medium"))
 
     card: dict[str, Any] = {
@@ -301,4 +317,55 @@ def render_ops_card(run: dict[str, Any], prev: dict[str, Any] | None = None,
     }
     if report_url:
         card["actions"] = [{"type": "Action.OpenUrl", "title": "Open full report", "url": report_url}]
+    return fit_card(card)
+
+
+CARD_BUDGET = 24_000   # bytes of JSON; Teams refuses messages over ~28 KB (the webhook still says 202)
+
+
+def _size(card: dict[str, Any]) -> int:
+    import json
+    return len(json.dumps(card, ensure_ascii=False).encode())
+
+
+def fit_card(card: dict[str, Any], budget: int = CARD_BUDGET) -> dict[str, Any]:
+    """Shorten the folded detail lists until the card fits. The full lists stay in the run file
+    (results/<date>/<slot>.json) and the dry-run preview. Order: the per-vessel list first,
+    then the largest other folded sections."""
+    note = "… cut to fit Teams; full list in results/<date>/<slot>.json"
+    containers = [b for b in card["body"] if b.get("type") == "Container" and b.get("id")]
+    order = [c for c in containers if c["id"] == "all"] + sorted(
+        (c for c in containers if c["id"] != "all"), key=lambda c: -_size(c))
+
+    def shorten_text(tb: dict[str, Any]) -> bool:
+        text = tb["text"].removesuffix(f"\n\n{note}").removesuffix(f" {note}")
+        if "\n\n" in text:                                   # line per vessel: drop whole lines
+            parts = text.split("\n\n")
+            if len(parts) <= 1:
+                return False
+            tb["text"] = "\n\n".join(parts[:-1]) + f"\n\n{note}"
+            return True
+        if len(text) <= 80:                                   # one long line: cut at a separator
+            return False
+        cut = text[: int(len(text) * 0.8)]
+        cut = cut[: max(cut.rfind(", "), cut.rfind(" · "), 40)]
+        tb["text"] = f"{cut} {note}"
+        return True
+
+    for c in order:
+        items = c["items"]
+        while _size(card) > budget:
+            if len(items) > 1:
+                if items[-1].get("text") == note:
+                    if len(items) == 2:
+                        break
+                    items.pop(-2)
+                else:
+                    items.pop()
+                    items.append({"type": "TextBlock", "text": note, "wrap": True, "size": "Small",
+                                  "isSubtle": True, "spacing": "None"})
+            elif not (items and items[0].get("type") == "TextBlock" and shorten_text(items[0])):
+                break
+        if _size(card) <= budget:
+            break
     return card

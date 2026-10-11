@@ -20,6 +20,7 @@ from .collect import collect
 from .config import Settings
 from .models import FileInfo, RunReport, Vessel
 from .notify import teams
+from .progress import NULL as NO_PROGRESS, Progress
 from .report.card import render_priority_alert, webhook_payload
 from .report.spot_card import issue_dicts, render_ops_card
 from .report.diff import diff_runs
@@ -37,7 +38,7 @@ class Sources(Protocol):
     def vessels(self) -> list[Vessel]: ...
     def registry_synced_at(self) -> datetime | None: ...
     def day_data(self, vessels: list[Vessel], day: date) -> DayData: ...
-    def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str]) -> ShareScan: ...
+    def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str], progress: Any = None) -> ShareScan: ...
     def spot(self, vessels: list[Vessel], day: date) -> dict[int, SpotInput]: ...
 
 
@@ -58,9 +59,9 @@ class LiveSources:
     def spot(self, vessels: list[Vessel], day: date) -> dict[int, SpotInput]:
         return SpotSource.from_legacy_db(self.mongo.db).load(vessels, day)
 
-    def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str]) -> ShareScan:
+    def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str], progress: Any = None) -> ShareScan:
         return scan_shares(self.s.landing_dir, self.s.staging_dir, self.s.processed_dir,
-                           wanted, day, ignored=ignored)
+                           wanted, day, ignored=ignored, progress=progress)
 
 
 class FixtureSources:
@@ -92,7 +93,7 @@ class FixtureSources:
         """Fixture `spot`: mmsi -> SpotInput JSON (see tests/fixtures/spot)."""
         return {int(k): SpotInput.from_json(v) for k, v in self.data.get("spot", {}).items()}
 
-    def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str]) -> ShareScan:
+    def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str], progress: Any = None) -> ShareScan:
         """Fixture `files` are keyed by folder name, like the shares."""
         files = self.data.get("files", {})
         by_folder: dict[str, SystemFiles] = {}
@@ -145,13 +146,16 @@ class RunOutcome:
 
 
 def execute(s: Settings, sources: Sources, slot: str, now: datetime | None = None,
-            data_day: date | None = None, post: bool = True) -> RunOutcome:
+            data_day: date | None = None, post: bool = True, progress: Progress = NO_PROGRESS) -> RunOutcome:
+    p = progress
     tz = ZoneInfo(s.timezone)
     now = (now or datetime.now(tz)).astimezone(tz)
     run_date = now.date()
     day = data_day or (run_date - timedelta(days=1))
 
-    all_vessels = sources.vessels()
+    p.note(f"OPS check · {slot} · data day {day:%a %d/%m/%Y}")
+    with p.step("Registry (vessels, config)"):
+        all_vessels = sources.vessels()
     excluded_clients = set(s.excluded_clients)
     config_warnings = registry_config.apply(all_vessels, registry_config.load(s.vessels_config))
 
@@ -163,8 +167,14 @@ def execute(s: Settings, sources: Sources, slot: str, now: datetime | None = Non
     vessels = [v for v in fleet if v.on_hire]
     off_hire = [v for v in fleet if not v.on_hire]
     ignored = {n for v in all_vessels if is_excluded(v) or not v.on_hire for n in v.folder_names}
-    scan = sources.scan(day, {v.key: v.folder_names for v in vessels}, ignored)
-    c = collect(vessels, day, scan, sources.day_data(vessels, day),
+    p.note(f"{len(vessels)} on hire, {len(off_hire)} off hire, {len(all_vessels) - len(fleet)} excluded")
+    with p.step(f"Scanning shares ({len(vessels)} vessels)"):
+        scan = sources.scan(day, {v.key: v.folder_names for v in vessels}, ignored, progress=p.item)
+    if scan.missing_roots:
+        p.note("WARNING shares not reachable: " + ", ".join(scan.missing_roots))
+    with p.step("MongoDB: ops stats, processed data, DPR status"):
+        day_data = sources.day_data(vessels, day)
+    c = collect(vessels, day, scan, day_data,
                 sources.registry_synced_at(), now, s, ignored_systems=ignored)
     c.warnings += config_warnings
     results = [evaluate(v, c.evidence[v.key], day, now, s) for v in vessels]
@@ -173,7 +183,11 @@ def execute(s: Settings, sources: Sources, slot: str, now: datetime | None = Non
     run = report.to_dict()
     run["posted"] = False
     run["shares_missing"] = list(scan.missing_roots)
-    run["spot"] = spot_check(vessels, results, sources, day, tz)
+    with p.step("Spot check (DPR, fuel, wave, timeline, transit)"):
+        run["spot"] = spot_check(vessels, results, sources, day, tz)
+    pipe = sum(r.diagnosis.value in ("offline", "stuck_mover", "stuck_processing", "not_loaded", "data_issue")
+               for r in results)
+    p.note(f"Pipeline issues: {pipe} · spot check: {len(run['spot'].get('blocks') or {})} vessels need attention")
 
     store = RunStore(s.results_dir)
     stored = store.save(run_date, slot, run)
@@ -189,12 +203,14 @@ def execute(s: Settings, sources: Sources, slot: str, now: datetime | None = Non
 
     posted = False
     if post:
+        p.note("Posting to Teams …")
         try:
             teams.post(s.teams_webhook_url, webhook_payload(card))
             for pc in prio:
                 teams.post(s.teams_webhook_url, webhook_payload(pc))
             posted = True
             store.mark_posted(run_date, slot, True)
+            p.note("Posted.")
         except teams.PostError as e:
             log.error("Posting failed: %s", e)
             store.mark_posted(run_date, slot, False, str(e))

@@ -124,7 +124,7 @@ def _info_text(r: dict[str, Any]) -> str:
 def footer(m: Message) -> str:
     parts = [f"Off-hire, not checked: {m.off_hire}"]
     if m.excluded:
-        parts.append(f"excluded test systems: {m.excluded}")
+        parts.append(f"excluded: {m.excluded}")
     return " · ".join(parts)
 
 

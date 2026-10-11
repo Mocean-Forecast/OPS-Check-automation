@@ -206,7 +206,7 @@ def test_fixture_morning(tmp_path):
     assert out.card["type"] == "AdaptiveCard"
     # off-hire vessels are counted, not listed
     assert "11 on hire · 9 checked · 5 need action · 2 known" in out.text
-    assert out.text.rstrip().endswith("Off-hire, not checked: 3 · excluded test systems: 1")
+    assert out.text.rstrip().endswith("Off-hire, not checked: 3 · excluded: 1")
     assert "Aberdaron" not in out.text and "Rachel Parsons" not in out.text
     assert not any("Rachel_Parsons" in w or "Aberdaron_Bay" in w for w in out.run["warnings"])
 
@@ -302,4 +302,4 @@ def test_spot_check_runs_with_the_chain(tmp_path):
     texts = [b.get("text", "") for b in out.card["body"]]
     assert texts[texts.index("PIPELINE") + 1] != "All data arrived, processed and loaded."
     assert any("No raw data, not synced" in str(b) for b in out.card["body"])
-    assert "Known (2)" in texts[-1] and "Off-hire, not checked: 3 · excluded test systems: 1" in texts[-1]
+    assert "Known (2)" in texts[-1] and "Off-hire, not checked: 3 · excluded: 1" in texts[-1]

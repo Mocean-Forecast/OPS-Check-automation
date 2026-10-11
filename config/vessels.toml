@@ -3,7 +3,7 @@
 # Vessels can be referred to by nicename, vesselname or MMSI.
 
 # Priority vessels get their own alert when they need action (D8).
-priority = ["Windcat Dorothea", "Offshore Waddenzee", "Bloemgracht"]
+priority = ["Windcat Dorothea", "Offshore Waddenzee", "Bloemgracht"]   # Waddenzee excluded for now, see below
 
 # Never checked: MO4 test / demo systems. (Client "MO4" alone does NOT exclude a vessel:
 # HST Hudson has client MO4 and is a real vessel.)
@@ -12,6 +12,9 @@ exclude = [
     "SOV_example",   # "SOV example", mmsi 987654321 – placeholder, on hire in the registry
     "Test_BMO",      # "TEST MO4",    mmsi 123456789
     "Test_BMO2",     # "TEST MO4 2",  mmsi 123456788
+    "Waddenzee",     # "Offshore Waddenzee" – TEMPORARY (11 Oct 2026): no folder under this name on
+                     # any share, odd setup. TODO: find its real folders / data path, add a
+                     # [folders] alias, remove it from this list. It's also on the priority list.
 ]
 
 # Extra folder names, for vessels whose folder on a share differs from `vesselname`.

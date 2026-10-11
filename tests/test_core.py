@@ -215,8 +215,10 @@ def test_fixture_recheck_marks_changes(tmp_path):
     _run(tmp_path, "morning", MORNING)
     out = _run(tmp_path, "recheck", datetime(2026, 10, 5, 12, 0, tzinfo=TZ))
     assert "[NEW] Offshore Waddenzee" in out.text
-    new = [b for b in out.card["body"] if b.get("text", "").startswith("NEW · ")]
-    assert new and new[0]["color"] == "Attention" and new[0]["weight"] == "Bolder"
+    texts = [b.get("text", "") for b in out.card["body"]]
+    i = texts.index("NEW SINCE PREVIOUS RUN")
+    assert texts[i + 1].startswith("• **Offshore Waddenzee** – Stuck at mover")
+    assert any("resolved since 07:30" in t for t in texts)
 
 
 def test_diff_resolved():
@@ -253,3 +255,51 @@ def test_client_mo4_is_checked_unless_excluded(tmp_path):
     cfg_file.write_text('exclude = ["MO4_test_wc47"]\n')
     registry_config.apply([hst, rig], registry_config.load(cfg_file))
     assert (hst.excluded, rig.excluded) == (False, True)
+
+
+# ---------------------------------------------------------------- shares not mounted
+
+def test_unmounted_shares_give_one_warning_and_a_banner(tmp_path):
+    from ops_check.collect import run_warnings
+    scan = scan_shares(tmp_path / "FTP_VESSEL_DATA", tmp_path / "Raw_vessel_data2",
+                       tmp_path / "vessel_data6", {"x": ["TEST"]}, DAY)
+    w = run_warnings([vessel()], scan, None, MORNING, S)
+    assert w == ["Share(s) not reachable: FTP_VESSEL_DATA, Raw_vessel_data2, vessel_data6. "
+                 "Folder checks skipped."]
+    r = evaluate(vessel(), Evidence(folder_found=False, shares_checked=False), DAY, MORNING, S)
+    assert r.diagnosis == Diagnosis.OFFLINE
+    assert "shares not reachable" in r.findings[0].message
+
+
+def test_banner_on_card_when_shares_missing(tmp_path):
+    out = _run(tmp_path, "morning", MORNING)
+    run = dict(out.run, shares_missing=["/Volumes/vessel_data6"])
+    card = render_card(build_message(run))
+    assert "INCOMPLETE" in card["body"][2]["text"]
+    assert "INCOMPLETE" not in str(out.card)
+
+
+# ---------------------------------------------------------------- pipeline + spot check in one run
+
+def test_spot_check_runs_with_the_chain(tmp_path):
+    """MO8 (ok in the chain) gets its spot findings; NOS Bringer (offline) keeps only the DPR line."""
+    import json
+    spot = Path(__file__).parent / "fixtures" / "spot"
+    data = json.loads(FIXTURE.read_text())
+    data["spot"] = {
+        "232040897": json.loads((spot / "MO8_2026-10-03.json").read_text())["input"],
+        "219016663": json.loads((spot / "NOS_Bringer_2026-10-03.json").read_text())["input"],
+    }
+    data["spot"]["219016663"]["dpr"]["remarks"] = ""
+    data["spot"]["219016663"]["dpr"]["accessDayType"] = ""
+    f = tmp_path / "fx.json"
+    f.write_text(json.dumps(data))
+    s = Settings(results_dir=tmp_path / "res", vessels_config=FIXTURE.parent / "vessels.toml")
+    out = execute(s, FixtureSources(f, s), "morning", now=MORNING, post=False)
+    checks = {(i["vessel"], i["check"]) for i in out.run["spot"]["issues"]}
+    assert ("MO8", "spot_fuel_margin") in checks
+    assert {c for v, c in checks if v == "NOS Bringer"} == {"spot_dpr"}  # offline: no fuel / missed / wave
+    texts = [b.get("text", "") for b in out.card["body"]]
+    assert texts[texts.index("PIPELINE") + 1] != "All data arrived, processed and loaded."
+    assert any("No raw data, not synced" in str(b) for b in out.card["body"])
+    assert "Known (2)" in texts[-1] and "Off-hire, not checked: 3 · excluded test systems: 1" in texts[-1]

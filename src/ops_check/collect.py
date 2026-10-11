@@ -28,6 +28,7 @@ def build_evidence(v: Vessel, day: date, scan: ShareScan, dd: DayData) -> Eviden
         backlog_days=sorted({a.day for a in sf.landing + sf.staging if a.day < day}),
         backlog_in_landing=any(a.day < day for a in sf.landing),
         folder_found=sf.has_folder,
+        shares_checked=not scan.missing_roots,
         db_processed=dd.processed(v),
         dpr=dd.dpr(v),
     )
@@ -52,8 +53,12 @@ def run_warnings(vessels: list[Vessel], scan: ShareScan, synced_at: datetime | N
         w.append("Registry sync time unknown (no sync timestamp on `vessels`)")
     elif now - synced_at > timedelta(hours=s.registry_stale_hours):
         w.append(f"Registry not synced since {synced_at.astimezone().strftime('%d/%m %H:%M')}")
-    for root in scan.missing_roots:
-        w.append(f"Share not reachable: {root}")
+    if scan.missing_roots:
+        # Without the shares only MongoDB was checked. Per-folder warnings would just list every
+        # vessel, so they're skipped; the message shows one banner instead (see report/message.py).
+        names = ", ".join(r.rstrip("/").rsplit("/", 1)[-1] for r in scan.missing_roots)
+        w.append(f"Share(s) not reachable: {names}. Folder checks skipped.")
+        return w + _no_system(vessels)
     if scan.unknown_active:
         u = scan.unknown_active
         w.append(f"Archives still arriving for {len(u)} folder(s) without an on-hire vessel "
@@ -63,11 +68,15 @@ def run_warnings(vessels: list[Vessel], scan: ShareScan, synced_at: datetime | N
     if no_folder:
         w.append(f"{len(no_folder)} on-hire vessel(s) without a folder on any share: "
                  f"{', '.join(no_folder[:8])}" + (" …" if len(no_folder) > 8 else ""))
+    return w + _no_system(vessels)
+
+
+def _no_system(vessels: list[Vessel]) -> list[str]:
     no_system = [v.name for v in vessels if v.on_hire and not v.system]
-    if no_system:
-        w.append(f"{len(no_system)} on-hire vessel(s) without system name in registry: "
-                 f"{', '.join(no_system[:8])}" + (" …" if len(no_system) > 8 else ""))
-    return w
+    if not no_system:
+        return []
+    return [f"{len(no_system)} on-hire vessel(s) without system name in registry: "
+            f"{', '.join(no_system[:8])}" + (" …" if len(no_system) > 8 else "")]
 
 
 def collect(vessels: list[Vessel], day: date, scan: ShareScan, dd: DayData,

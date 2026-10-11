@@ -1,0 +1,833 @@
+{
+ "vessel": "Windcat 50",
+ "day": "2026-10-02",
+ "input": {
+  "vessel_type": "CTV",
+  "dpr": {
+   "mmsi": 232039514,
+   "date": 740257,
+   "accessDayType": "FULL_ACCESS",
+   "remarks": "(remarks redacted)",
+   "consumptionList": [
+    {
+     "name": "Fuel tank",
+     "type": "Diesel",
+     "startOfDay": 6400,
+     "consumed": 1040,
+     "discharged": 0,
+     "bunkered": 0,
+     "remaining": 5360
+    }
+   ],
+   "signOff": {
+    "signOffStatus": 1,
+    "signedOffByClient": "",
+    "signedOffByVesselmaster": "redacted",
+    "signOffRemarks": "",
+    "confirmedByClientRepresentative": "",
+    "refusedByClientRepresentative": ""
+   },
+   "lastModified": 1791113250.034,
+   "schemaVersion": 5
+  },
+  "fuel_measured_l": 998.0,
+  "timeline": [
+   {
+    "event_type": "system offline",
+    "event_name": "System offline near IJmuiden",
+    "start_time": "2026-10-02T00:00:00Z",
+    "end_time": "2026-10-02T05:12:10Z",
+    "details": {}
+   },
+   {
+    "event_type": "port",
+    "event_name": "Port IJmuiden",
+    "start_time": "2026-10-02T05:12:10Z",
+    "end_time": "2026-10-02T05:12:20Z",
+    "details": {
+     "port": "IJmuiden",
+     "fuel usage": 1.1
+    }
+   },
+   {
+    "event_type": "transit",
+    "event_name": "Transit IJmuiden - Hollandse Kust Zuid 2",
+    "start_time": "2026-10-02T05:12:20Z",
+    "end_time": "2026-10-02T06:06:40Z",
+    "details": {
+     "from": "IJmuiden",
+     "to": "Hollandse Kust Zuid 2",
+     "fuel usage": 348.6
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field to HZH3",
+    "start_time": "2026-10-02T06:06:40Z",
+    "end_time": "2026-10-02T06:11:00Z",
+    "details": {
+     "to": "HZH3",
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 27.8
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZH3",
+    "start_time": "2026-10-02T06:11:00Z",
+    "end_time": "2026-10-02T06:23:00Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 48.7
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field HZH3 - HZG6",
+    "start_time": "2026-10-02T06:23:00Z",
+    "end_time": "2026-10-02T06:25:40Z",
+    "details": {
+     "from": "HZH3",
+     "to": "HZG6",
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 13.5
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZG6",
+    "start_time": "2026-10-02T06:25:40Z",
+    "end_time": "2026-10-02T06:38:20Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 63.3
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field from HZG6",
+    "start_time": "2026-10-02T06:38:20Z",
+    "end_time": "2026-10-02T06:42:50Z",
+    "details": {
+     "from": "HZG6",
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 6.1
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field Hollandse Kust Zuid 2",
+    "start_time": "2026-10-02T06:42:50Z",
+    "end_time": "2026-10-02T06:44:40Z",
+    "details": {
+     "fuel usage": 1
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T06:44:40Z",
+    "end_time": "2026-10-02T06:54:20Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 29.5
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field Hollandse Kust Zuid 2",
+    "start_time": "2026-10-02T06:54:20Z",
+    "end_time": "2026-10-02T06:56:50Z",
+    "details": {
+     "fuel usage": 1.1
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field to HZG5",
+    "start_time": "2026-10-02T06:56:50Z",
+    "end_time": "2026-10-02T06:58:10Z",
+    "details": {
+     "to": "HZG5",
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 1.3
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZG5",
+    "start_time": "2026-10-02T06:58:10Z",
+    "end_time": "2026-10-02T07:01:50Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 10.2
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field Hollandse Kust Zuid 2",
+    "start_time": "2026-10-02T07:01:50Z",
+    "end_time": "2026-10-02T08:12:10Z",
+    "details": {
+     "fuel usage": 1.6
+    }
+   },
+   {
+    "event_type": "waiting tied off",
+    "event_name": "Tied off at HZG5",
+    "start_time": "2026-10-02T08:12:10Z",
+    "end_time": "2026-10-02T13:16:40Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 0.2
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field Hollandse Kust Zuid 2",
+    "start_time": "2026-10-02T13:16:40Z",
+    "end_time": "2026-10-02T13:20:20Z",
+    "details": {
+     "fuel usage": 0.8
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field to HZG6",
+    "start_time": "2026-10-02T13:20:20Z",
+    "end_time": "2026-10-02T13:23:30Z",
+    "details": {
+     "to": "HZG6",
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 1.9
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZG6",
+    "start_time": "2026-10-02T13:23:30Z",
+    "end_time": "2026-10-02T13:36:10Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 39.6
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field from HZG6",
+    "start_time": "2026-10-02T13:36:10Z",
+    "end_time": "2026-10-02T13:40:20Z",
+    "details": {
+     "from": "HZG6",
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 17.7
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field Hollandse Kust Zuid 2",
+    "start_time": "2026-10-02T13:40:20Z",
+    "end_time": "2026-10-02T13:49:20Z",
+    "details": {
+     "fuel usage": 1.5
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZH3",
+    "start_time": "2026-10-02T13:49:20Z",
+    "end_time": "2026-10-02T13:59:40Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 26.6
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field from HZH3",
+    "start_time": "2026-10-02T13:59:40Z",
+    "end_time": "2026-10-02T14:04:40Z",
+    "details": {
+     "from": "HZH3",
+     "field": "Hollandse Kust Zuid 2",
+     "fuel usage": 26.9
+    }
+   },
+   {
+    "event_type": "transit",
+    "event_name": "Transit Hollandse Kust Zuid 2 - IJmuiden",
+    "start_time": "2026-10-02T14:04:40Z",
+    "end_time": "2026-10-02T14:56:10Z",
+    "details": {
+     "from": "Hollandse Kust Zuid 2",
+     "to": "IJmuiden",
+     "fuel usage": 329.4
+    }
+   },
+   {
+    "event_type": "system offline",
+    "event_name": "System offline near IJmuiden",
+    "start_time": "2026-10-02T14:56:10Z",
+    "end_time": "2026-10-03T00:00:00Z",
+    "details": {}
+   }
+  ],
+  "wave": {
+   "label": "VF API",
+   "source_id": "659d947110e6c9233a5d97e1",
+   "resolution_min": 15.0,
+   "samples": [
+    [
+     "2026-10-01T00:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T00:15:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-01T00:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T00:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T01:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T01:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T01:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T01:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T02:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T02:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T02:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T02:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T03:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T03:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T03:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T03:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T04:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T04:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T04:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T04:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T05:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T05:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T05:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T05:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T06:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T06:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T06:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T06:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T07:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T07:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T07:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T07:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T08:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T08:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T08:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T08:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T09:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T09:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T09:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T09:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T10:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T10:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T10:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T10:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T11:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T11:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T11:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T11:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T12:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T12:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T12:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T12:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T13:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T13:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T13:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T13:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T14:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T14:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T14:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T14:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T15:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T15:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T15:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T15:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T16:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T16:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T16:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T16:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T17:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T17:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T17:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T17:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T18:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T18:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T18:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T18:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T19:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T19:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T19:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T19:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T20:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T20:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T20:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T20:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T21:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T21:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T21:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T21:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T22:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T22:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T22:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T22:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T23:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T23:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T23:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-01T23:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-02T23:15:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-02T23:30:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-02T23:45:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-03T23:15:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-03T23:30:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-03T23:45:00+00:00",
+     0.0,
+     true
+    ]
+   ]
+  },
+  "wave_source_hint": null,
+  "missed": [],
+  "last_dpr_day": null,
+  "logged": [
+   {
+    "start": "2026-10-02T06:11:41.117853+00:00",
+    "stop": "2026-10-02T06:22:42.192772+00:00",
+    "location": "HZH3"
+   },
+   {
+    "start": "2026-10-02T06:26:28.018172+00:00",
+    "stop": "2026-10-02T06:37:56.792931+00:00",
+    "location": "HZG6"
+   },
+   {
+    "start": "2026-10-02T06:58:54.517733+00:00",
+    "stop": "2026-10-02T07:01:08.317631+00:00",
+    "location": "HZG5"
+   },
+   {
+    "start": "2026-10-02T13:24:01.192894+00:00",
+    "stop": "2026-10-02T13:35:41.018207+00:00",
+    "location": "HZG6"
+   },
+   {
+    "start": "2026-10-02T13:49:56.317732+00:00",
+    "stop": "2026-10-02T13:58:55.043325+00:00",
+    "location": "HZH3"
+   }
+  ],
+  "data_start": "2026-10-02T05:12:09+00:00",
+  "data_end": "2026-10-02T14:56:00+00:00",
+  "route_start": "2026-10-02T00:03:52+00:00",
+  "route_end": "2026-10-02T09:41:40+00:00",
+  "harbour_arrival": "2026-10-02T14:55:55+00:00",
+  "recorded": true,
+  "vmru": {},
+  "vmru_expected": [],
+  "last_trace": null,
+  "project": null
+ }
+}

@@ -1,0 +1,892 @@
+{
+ "vessel": "Grampian Kestrel",
+ "day": "2026-10-02",
+ "input": {
+  "vessel_type": "OSV",
+  "dpr": {
+   "mmsi": 232058247,
+   "date": 740257,
+   "accessDayType": {
+    "status": "Full access day"
+   },
+   "remarks": "(remarks redacted)",
+   "signedOff": {
+    "amount": 2,
+    "signedOffSkipper": "redacted",
+    "signedOffClient": "redacted"
+   },
+   "missedPaxCargo": [],
+   "lastModified": 1791027734
+  },
+  "fuel_measured_l": null,
+  "timeline": [
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting near He Dreiht",
+    "start_time": "2026-10-02T00:00:00Z",
+    "end_time": "2026-10-02T03:47:30Z",
+    "details": {
+     "fuel usage": 714
+    }
+   },
+   {
+    "event_type": "transit",
+    "event_name": "Relocating near He Dreiht",
+    "start_time": "2026-10-02T03:47:30Z",
+    "end_time": "2026-10-02T03:49:40Z",
+    "details": {
+     "fuel usage": 13
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T03:49:40Z",
+    "end_time": "2026-10-02T04:01:40Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 78
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field He Dreiht",
+    "start_time": "2026-10-02T04:01:40Z",
+    "end_time": "2026-10-02T04:10:00Z",
+    "details": {
+     "fuel usage": 42
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD G1",
+    "start_time": "2026-10-02T04:10:00Z",
+    "end_time": "2026-10-02T04:42:40Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 161,
+     "Hs": 0.96
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T04:42:40Z",
+    "end_time": "2026-10-02T05:08:50Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 160
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD D1",
+    "start_time": "2026-10-02T05:08:50Z",
+    "end_time": "2026-10-02T05:41:50Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 167,
+     "Hs": 0.75
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T05:41:50Z",
+    "end_time": "2026-10-02T06:08:20Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 147
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD K1",
+    "start_time": "2026-10-02T06:08:20Z",
+    "end_time": "2026-10-02T06:30:20Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 112,
+     "Hs": 0.59
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T06:30:20Z",
+    "end_time": "2026-10-02T06:54:10Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 128
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD I1",
+    "start_time": "2026-10-02T06:54:10Z",
+    "end_time": "2026-10-02T07:26:50Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 165,
+     "Hs": 0.58
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T07:26:50Z",
+    "end_time": "2026-10-02T08:05:00Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 208
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD K2",
+    "start_time": "2026-10-02T08:05:00Z",
+    "end_time": "2026-10-02T08:33:30Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 145,
+     "Hs": 0.77
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T08:33:30Z",
+    "end_time": "2026-10-02T09:36:40Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 311
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD K2",
+    "start_time": "2026-10-02T09:36:40Z",
+    "end_time": "2026-10-02T09:52:00Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 89,
+     "Hs": 0.7
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T09:52:00Z",
+    "end_time": "2026-10-02T12:15:40Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 579
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD K1",
+    "start_time": "2026-10-02T12:15:40Z",
+    "end_time": "2026-10-02T12:38:10Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 111,
+     "Hs": 0.49
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T12:38:10Z",
+    "end_time": "2026-10-02T14:01:10Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 348
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD I1",
+    "start_time": "2026-10-02T14:01:10Z",
+    "end_time": "2026-10-02T14:33:30Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 172,
+     "Hs": 0.61
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T14:33:30Z",
+    "end_time": "2026-10-02T15:06:00Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 171
+    }
+   },
+   {
+    "event_type": "vessel2vessel transfer",
+    "event_name": "Vessel-to-vesssel transfer with MCS SWATH 3",
+    "start_time": "2026-10-02T15:06:00Z",
+    "end_time": "2026-10-02T15:08:20Z",
+    "details": {
+     "fuel usage": 14,
+     "Hs": 0.67
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T15:08:20Z",
+    "end_time": "2026-10-02T15:17:30Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 47
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD G1",
+    "start_time": "2026-10-02T15:17:30Z",
+    "end_time": "2026-10-02T15:38:10Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 118,
+     "Hs": 0.67
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T15:38:10Z",
+    "end_time": "2026-10-02T17:42:30Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 700
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD K2",
+    "start_time": "2026-10-02T17:42:30Z",
+    "end_time": "2026-10-02T18:02:00Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 113,
+     "Hs": 0.65
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T18:02:00Z",
+    "end_time": "2026-10-02T18:26:30Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 156
+    }
+   },
+   {
+    "event_type": "turbine transfer",
+    "event_name": "Transfer at HD D1",
+    "start_time": "2026-10-02T18:26:30Z",
+    "end_time": "2026-10-02T18:57:00Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 156,
+     "Hs": 0.65
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field He Dreiht",
+    "start_time": "2026-10-02T18:57:00Z",
+    "end_time": "2026-10-02T18:59:30Z",
+    "details": {
+     "fuel usage": 16
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field",
+    "start_time": "2026-10-02T18:59:30Z",
+    "end_time": "2026-10-02T19:13:40Z",
+    "details": {
+     "field": "He Dreiht",
+     "fuel usage": 94
+    }
+   },
+   {
+    "event_type": "transit",
+    "event_name": "Relocating near He Dreiht",
+    "start_time": "2026-10-02T19:13:40Z",
+    "end_time": "2026-10-02T19:16:40Z",
+    "details": {
+     "fuel usage": 18
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting near He Dreiht",
+    "start_time": "2026-10-02T19:16:40Z",
+    "end_time": "2026-10-03T00:00:00Z",
+    "details": {
+     "fuel usage": 935
+    }
+   }
+  ],
+  "wave": {
+   "label": "Furuno",
+   "source_id": null,
+   "resolution_min": 15,
+   "samples": [
+    [
+     "2026-10-02T00:14:59.999997+00:00",
+     0.88,
+     true
+    ],
+    [
+     "2026-10-02T00:30:00.000003+00:00",
+     0.92,
+     true
+    ],
+    [
+     "2026-10-02T00:45:00+00:00",
+     0.92,
+     true
+    ],
+    [
+     "2026-10-02T00:59:59.999997+00:00",
+     0.96,
+     true
+    ],
+    [
+     "2026-10-02T01:15:00.000003+00:00",
+     0.95,
+     true
+    ],
+    [
+     "2026-10-02T01:30:00+00:00",
+     0.98,
+     true
+    ],
+    [
+     "2026-10-02T01:44:59.999997+00:00",
+     1.02,
+     true
+    ],
+    [
+     "2026-10-02T02:00:00.000003+00:00",
+     1.02,
+     true
+    ],
+    [
+     "2026-10-02T02:15:00+00:00",
+     1.02,
+     true
+    ],
+    [
+     "2026-10-02T02:29:59.999997+00:00",
+     1.03,
+     true
+    ],
+    [
+     "2026-10-02T02:45:00.000003+00:00",
+     0.95,
+     true
+    ],
+    [
+     "2026-10-02T03:00:00+00:00",
+     0.92,
+     true
+    ],
+    [
+     "2026-10-02T03:14:59.999997+00:00",
+     0.93,
+     true
+    ],
+    [
+     "2026-10-02T03:30:00.000003+00:00",
+     0.92,
+     true
+    ],
+    [
+     "2026-10-02T03:45:00+00:00",
+     0.86,
+     true
+    ],
+    [
+     "2026-10-02T03:59:59.999997+00:00",
+     0.93,
+     true
+    ],
+    [
+     "2026-10-02T04:15:00.000003+00:00",
+     0.94,
+     true
+    ],
+    [
+     "2026-10-02T04:30:00+00:00",
+     0.95,
+     true
+    ],
+    [
+     "2026-10-02T04:44:59.999997+00:00",
+     0.88,
+     true
+    ],
+    [
+     "2026-10-02T05:00:00.000003+00:00",
+     0.82,
+     true
+    ],
+    [
+     "2026-10-02T05:15:00+00:00",
+     0.78,
+     true
+    ],
+    [
+     "2026-10-02T05:29:59.999997+00:00",
+     0.74,
+     true
+    ],
+    [
+     "2026-10-02T05:45:00.000003+00:00",
+     0.68,
+     true
+    ],
+    [
+     "2026-10-02T06:00:00+00:00",
+     0.64,
+     true
+    ],
+    [
+     "2026-10-02T06:14:59.999997+00:00",
+     0.59,
+     true
+    ],
+    [
+     "2026-10-02T06:30:00.000003+00:00",
+     0.59,
+     true
+    ],
+    [
+     "2026-10-02T06:45:00+00:00",
+     0.57,
+     true
+    ],
+    [
+     "2026-10-02T06:59:59.999997+00:00",
+     0.57,
+     true
+    ],
+    [
+     "2026-10-02T07:15:00.000003+00:00",
+     0.55,
+     true
+    ],
+    [
+     "2026-10-02T07:30:00+00:00",
+     0.59,
+     true
+    ],
+    [
+     "2026-10-02T07:44:59.999997+00:00",
+     0.65,
+     true
+    ],
+    [
+     "2026-10-02T08:00:00.000003+00:00",
+     0.71,
+     true
+    ],
+    [
+     "2026-10-02T08:15:00+00:00",
+     0.73,
+     true
+    ],
+    [
+     "2026-10-02T08:29:59.999997+00:00",
+     0.75,
+     true
+    ],
+    [
+     "2026-10-02T08:45:00.000003+00:00",
+     0.73,
+     true
+    ],
+    [
+     "2026-10-02T09:00:00+00:00",
+     0.67,
+     true
+    ],
+    [
+     "2026-10-02T09:14:59.999997+00:00",
+     0.67,
+     true
+    ],
+    [
+     "2026-10-02T09:30:00.000003+00:00",
+     0.66,
+     true
+    ],
+    [
+     "2026-10-02T09:45:00+00:00",
+     0.66,
+     true
+    ],
+    [
+     "2026-10-02T09:59:59.999997+00:00",
+     0.73,
+     true
+    ],
+    [
+     "2026-10-02T10:15:00.000003+00:00",
+     0.65,
+     true
+    ],
+    [
+     "2026-10-02T10:30:00+00:00",
+     0.61,
+     true
+    ],
+    [
+     "2026-10-02T10:44:59.999997+00:00",
+     0.62,
+     true
+    ],
+    [
+     "2026-10-02T11:00:00.000003+00:00",
+     0.62,
+     true
+    ],
+    [
+     "2026-10-02T11:15:00+00:00",
+     0.57,
+     true
+    ],
+    [
+     "2026-10-02T11:29:59.999997+00:00",
+     0.54,
+     true
+    ],
+    [
+     "2026-10-02T11:45:00.000003+00:00",
+     0.58,
+     true
+    ],
+    [
+     "2026-10-02T12:00:00+00:00",
+     0.5,
+     true
+    ],
+    [
+     "2026-10-02T12:14:59.999997+00:00",
+     0.49,
+     true
+    ],
+    [
+     "2026-10-02T12:30:00.000003+00:00",
+     0.48,
+     true
+    ],
+    [
+     "2026-10-02T12:45:00+00:00",
+     0.48,
+     true
+    ],
+    [
+     "2026-10-02T12:59:59.999997+00:00",
+     0.49,
+     true
+    ],
+    [
+     "2026-10-02T13:15:00.000003+00:00",
+     0.53,
+     true
+    ],
+    [
+     "2026-10-02T13:30:00+00:00",
+     0.56,
+     true
+    ],
+    [
+     "2026-10-02T13:44:59.999997+00:00",
+     0.53,
+     true
+    ],
+    [
+     "2026-10-02T14:00:00.000003+00:00",
+     0.54,
+     true
+    ],
+    [
+     "2026-10-02T14:15:00+00:00",
+     0.55,
+     true
+    ],
+    [
+     "2026-10-02T14:29:59.999997+00:00",
+     0.6,
+     true
+    ],
+    [
+     "2026-10-02T14:45:00.000003+00:00",
+     0.57,
+     true
+    ],
+    [
+     "2026-10-02T15:00:00+00:00",
+     0.61,
+     true
+    ],
+    [
+     "2026-10-02T15:14:59.999997+00:00",
+     0.69,
+     true
+    ],
+    [
+     "2026-10-02T15:30:00.000003+00:00",
+     0.65,
+     true
+    ],
+    [
+     "2026-10-02T15:45:00+00:00",
+     0.62,
+     true
+    ],
+    [
+     "2026-10-02T15:59:59.999997+00:00",
+     0.6,
+     true
+    ],
+    [
+     "2026-10-02T16:15:00.000003+00:00",
+     0.61,
+     true
+    ],
+    [
+     "2026-10-02T16:30:00+00:00",
+     0.58,
+     true
+    ],
+    [
+     "2026-10-02T16:44:59.999997+00:00",
+     0.6,
+     true
+    ],
+    [
+     "2026-10-02T17:00:00.000003+00:00",
+     0.6,
+     true
+    ],
+    [
+     "2026-10-02T17:15:00+00:00",
+     0.6,
+     true
+    ],
+    [
+     "2026-10-02T17:29:59.999997+00:00",
+     0.56,
+     true
+    ],
+    [
+     "2026-10-02T17:45:00.000003+00:00",
+     0.56,
+     true
+    ],
+    [
+     "2026-10-02T18:00:00+00:00",
+     0.65,
+     true
+    ],
+    [
+     "2026-10-02T18:14:59.999997+00:00",
+     0.64,
+     true
+    ],
+    [
+     "2026-10-02T18:30:00.000003+00:00",
+     0.53,
+     true
+    ],
+    [
+     "2026-10-02T18:45:00+00:00",
+     0.64,
+     true
+    ],
+    [
+     "2026-10-02T18:59:59.999997+00:00",
+     0.63,
+     true
+    ],
+    [
+     "2026-10-02T19:15:00.000003+00:00",
+     0.6,
+     true
+    ],
+    [
+     "2026-10-02T19:30:00+00:00",
+     0.63,
+     true
+    ],
+    [
+     "2026-10-02T19:44:59.999997+00:00",
+     0.65,
+     true
+    ],
+    [
+     "2026-10-02T20:00:00.000003+00:00",
+     0.72,
+     true
+    ],
+    [
+     "2026-10-02T20:15:00+00:00",
+     0.77,
+     true
+    ],
+    [
+     "2026-10-02T20:29:59.999997+00:00",
+     0.82,
+     true
+    ],
+    [
+     "2026-10-02T20:45:00.000003+00:00",
+     0.85,
+     true
+    ],
+    [
+     "2026-10-02T21:00:00+00:00",
+     0.87,
+     true
+    ],
+    [
+     "2026-10-02T21:14:59.999997+00:00",
+     0.83,
+     true
+    ],
+    [
+     "2026-10-02T21:30:00.000003+00:00",
+     0.82,
+     true
+    ],
+    [
+     "2026-10-02T21:45:00+00:00",
+     0.79,
+     true
+    ],
+    [
+     "2026-10-02T21:59:59.999997+00:00",
+     0.74,
+     true
+    ],
+    [
+     "2026-10-02T22:15:00.000003+00:00",
+     0.74,
+     true
+    ],
+    [
+     "2026-10-02T22:30:00+00:00",
+     0.66,
+     true
+    ],
+    [
+     "2026-10-02T22:44:59.999997+00:00",
+     0.65,
+     true
+    ],
+    [
+     "2026-10-02T23:00:00.000003+00:00",
+     0.64,
+     true
+    ],
+    [
+     "2026-10-02T23:15:00+00:00",
+     0.66,
+     true
+    ],
+    [
+     "2026-10-02T23:29:59.999997+00:00",
+     0.67,
+     true
+    ],
+    [
+     "2026-10-02T23:45:00.000003+00:00",
+     0.69,
+     true
+    ]
+   ]
+  },
+  "wave_source_hint": null,
+  "missed": [],
+  "last_dpr_day": null,
+  "logged": [
+   {
+    "start": "2026-10-02T04:27:30.949632+00:00",
+    "stop": "2026-10-02T04:40:02.550142+00:00",
+    "location": "HD G1"
+   },
+   {
+    "start": "2026-10-02T05:25:52.124737+00:00",
+    "stop": "2026-10-02T05:39:59.000258+00:00",
+    "location": "HD D1"
+   },
+   {
+    "start": "2026-10-02T06:14:54.749764+00:00",
+    "stop": "2026-10-02T06:28:25.800384+00:00",
+    "location": "HD K1"
+   },
+   {
+    "start": "2026-10-02T07:12:34.050242+00:00",
+    "stop": "2026-10-02T07:24:52.375396+00:00",
+    "location": "HD I1"
+   },
+   {
+    "start": "2026-10-02T08:15:32.825089+00:00",
+    "stop": "2026-10-02T08:31:29.000067+00:00",
+    "location": "HD K2"
+   },
+   {
+    "start": "2026-10-02T09:41:05.925118+00:00",
+    "stop": "2026-10-02T09:49:37.274879+00:00",
+    "location": "HD K2"
+   },
+   {
+    "start": "2026-10-02T12:19:07.625278+00:00",
+    "stop": "2026-10-02T12:35:42.325153+00:00",
+    "location": "HD K1"
+   },
+   {
+    "start": "2026-10-02T14:04:35.474882+00:00",
+    "stop": "2026-10-02T14:31:31.325090+00:00",
+    "location": "HD I1"
+   },
+   {
+    "start": "2026-10-02T15:20:32.274819+00:00",
+    "stop": "2026-10-02T15:35:55.125315+00:00",
+    "location": "HD G1"
+   },
+   {
+    "start": "2026-10-02T17:46:18.450051+00:00",
+    "stop": "2026-10-02T18:00:02.924637+00:00",
+    "location": "HD K2"
+   },
+   {
+    "start": "2026-10-02T18:29:08.125149+00:00",
+    "stop": "2026-10-02T18:55:01.674910+00:00",
+    "location": "HD D1"
+   }
+  ],
+  "data_start": "2026-10-02T00:00:00+00:00",
+  "data_end": "2026-10-03T00:00:00+00:00",
+  "route_start": "2026-10-02T00:01:04+00:00",
+  "route_end": "2026-10-03T00:00:05+00:00",
+  "harbour_arrival": null,
+  "recorded": true,
+  "vmru": {},
+  "vmru_expected": [],
+  "last_trace": null,
+  "project": null
+ }
+}

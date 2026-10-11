@@ -15,16 +15,19 @@ from zoneinfo import ZoneInfo
 
 from . import CHECK_VERSION
 from .checks.chain import evaluate
+from .checks.spot import SpotInput, render_vessel, run_spot
 from .collect import collect
 from .config import Settings
 from .models import FileInfo, RunReport, Vessel
 from .notify import teams
-from .report.card import render_card, render_priority_alert, webhook_payload
+from .report.card import render_priority_alert, webhook_payload
+from .report.spot_card import issue_dicts, render_ops_card
 from .report.diff import diff_runs
 from .report.message import build_message, priority_alerts, render_text
 from .sources.files import ShareScan, SystemFiles, norm, scan_shares
 from . import registry_config
 from .sources.mongo import DayData, MongoSource, registry_synced_at, vessel_from_doc
+from .sources.spot_mongo import SpotSource
 from .store import RunStore
 
 log = logging.getLogger("ops_check")
@@ -35,6 +38,7 @@ class Sources(Protocol):
     def registry_synced_at(self) -> datetime | None: ...
     def day_data(self, vessels: list[Vessel], day: date) -> DayData: ...
     def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str]) -> ShareScan: ...
+    def spot(self, vessels: list[Vessel], day: date) -> dict[int, SpotInput]: ...
 
 
 class LiveSources:
@@ -50,6 +54,9 @@ class LiveSources:
 
     def day_data(self, vessels: list[Vessel], day: date) -> DayData:
         return self.mongo.day_data(vessels, day)
+
+    def spot(self, vessels: list[Vessel], day: date) -> dict[int, SpotInput]:
+        return SpotSource.from_legacy_db(self.mongo.db).load(vessels, day)
 
     def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str]) -> ShareScan:
         return scan_shares(self.s.landing_dir, self.s.staging_dir, self.s.processed_dir,
@@ -80,6 +87,10 @@ class FixtureSources:
             sov_dpr=conv(d.get("sov_dpr", {})),
             transit_gaps={int(k): tuple(v) for k, v in d.get("transit_gaps", {}).items()},
         )
+
+    def spot(self, vessels: list[Vessel], day: date) -> dict[int, SpotInput]:
+        """Fixture `spot`: mmsi -> SpotInput JSON (see tests/fixtures/spot)."""
+        return {int(k): SpotInput.from_json(v) for k, v in self.data.get("spot", {}).items()}
 
     def scan(self, day: date, wanted: dict[str, list[str]], ignored: set[str]) -> ShareScan:
         """Fixture `files` are keyed by folder name, like the shares."""
@@ -161,13 +172,18 @@ def execute(s: Settings, sources: Sources, slot: str, now: datetime | None = Non
                        excluded_count=len(all_vessels) - len(fleet))
     run = report.to_dict()
     run["posted"] = False
+    run["shares_missing"] = list(scan.missing_roots)
+    run["spot"] = spot_check(vessels, results, sources, day, tz)
 
     store = RunStore(s.results_dir)
     stored = store.save(run_date, slot, run)
 
     before = store.load(run_date, "morning") if slot == "recheck" else None
     msg = build_message(run, diff_runs(before, run) if before else None)
-    card = render_card(msg)
+    # Card compares with the previous run: 11:00 with 07:30, 07:30 with yesterday's final run.
+    previous = before if slot == "recheck" else (store.load(run_date - timedelta(days=1), "recheck")
+                                                 or store.load(run_date - timedelta(days=1), "morning"))
+    card = render_ops_card(run, previous)
     prio = [render_priority_alert(i, msg.title) for i in priority_alerts(msg)]
     text = render_text(msg)
 
@@ -183,6 +199,36 @@ def execute(s: Settings, sources: Sources, slot: str, now: datetime | None = Non
             log.error("Posting failed: %s", e)
             store.mark_posted(run_date, slot, False, str(e))
     return RunOutcome(run, text, card, prio, stored, posted)
+
+
+# Pipeline diagnoses where the day's data isn't in MongoDB: only the DPR (crew input) is judged.
+_NO_DB_DATA = {"offline", "stuck_mover", "stuck_processing", "not_loaded", "in_transit"}
+
+
+def spot_check(vessels: list[Vessel], results: list, sources: Sources, day: date, tz: Any) -> dict[str, Any]:
+    """DPR spot check for every on-hire vessel, alongside the chain (D2). Stored in the run file."""
+    try:
+        inputs = sources.spot(vessels, day)
+    except Exception as e:  # noqa: BLE001 - the chain result must still post
+        log.error("Spot check failed: %s", e)
+        return {"error": str(e), "issues": [], "blocks": {}}
+    issues: list[dict[str, Any]] = []
+    blocks: dict[str, list[str]] = {}
+    dpr_state: dict[str, str] = {}
+    for r in results:
+        v = r.vessel
+        inp = inputs.get(v.mmsi) if v.mmsi is not None else None
+        if inp is None or r.diagnosis.value == "known":
+            continue
+        res = run_spot(v.name, inp, day, tz)
+        if r.diagnosis.value in _NO_DB_DATA and inp.vessel_type != "transit":  # transit: the vMRU line is the check
+            res.findings = [f for f in res.findings if f.check == "spot_dpr"]
+        dpr_state[v.name] = res.dpr_state
+        issues += issue_dicts(v.name, inp, res)
+        b = render_vessel(v.name, res)
+        if b:
+            blocks[v.name] = b
+    return {"issues": issues, "blocks": blocks, "dpr_state": dpr_state}
 
 
 def watchdog(s: Settings, slot: str, now: datetime | None = None, post: bool = True) -> str | None:

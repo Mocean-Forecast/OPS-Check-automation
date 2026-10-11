@@ -1,0 +1,1733 @@
+{
+ "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+ "type": "AdaptiveCard",
+ "version": "1.4",
+ "msteams": {
+  "width": "Full"
+ },
+ "body": [
+  {
+   "type": "TextBlock",
+   "text": "OPS CHECK · Sun 11/10 07:30 · data Sat 10/10",
+   "wrap": true,
+   "weight": "Bolder",
+   "size": "Large"
+  },
+  {
+   "type": "TextBlock",
+   "text": "65 on hire · **6 pipeline** · **49 spot check** · 9 clean · 6 known",
+   "wrap": true,
+   "spacing": "None"
+  },
+  {
+   "type": "TextBlock",
+   "text": "🆕 3 new · ✅ 11 resolved since yesterday",
+   "wrap": true,
+   "spacing": "Small",
+   "isSubtle": true
+  },
+  {
+   "type": "TextBlock",
+   "text": "⚠ INCOMPLETE: file shares not reachable. Pipeline judged from MongoDB only; 'No raw data' may include vessels stuck in the pipeline.",
+   "wrap": true,
+   "color": "Attention",
+   "weight": "Bolder",
+   "spacing": "Small"
+  },
+  {
+   "type": "TextBlock",
+   "text": "PIPELINE",
+   "wrap": true,
+   "weight": "Bolder",
+   "spacing": "Medium",
+   "separator": true
+  },
+  {
+   "type": "ColumnSet",
+   "spacing": "Small",
+   "columns": [
+    {
+     "type": "Column",
+     "width": "90px",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**@Team Data**",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "stretch",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "No raw data, not synced",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**6**",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "▸",
+       "wrap": true,
+       "isSubtle": true
+      }
+     ]
+    }
+   ],
+   "selectAction": {
+    "type": "Action.ToggleVisibility",
+    "targetElements": [
+     "p_offline"
+    ]
+   }
+  },
+  {
+   "type": "Container",
+   "id": "p_offline",
+   "isVisible": false,
+   "spacing": "None",
+   "style": "emphasis",
+   "items": [
+    {
+     "type": "TextBlock",
+     "text": "• **Bokalift 2** – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **Brouwersgracht** – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Mariner** – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **SOV example** – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **TEST MO4** – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **TEST MO4 2** – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    }
+   ]
+  },
+  {
+   "type": "TextBlock",
+   "text": "NEW SINCE PREVIOUS RUN",
+   "wrap": true,
+   "weight": "Bolder",
+   "spacing": "Medium",
+   "separator": true
+  },
+  {
+   "type": "TextBlock",
+   "text": "• **NOS Bolder** – Fuel entered missing (measured 70 L) **@Team OPS**",
+   "wrap": true,
+   "spacing": "Small"
+  },
+  {
+   "type": "TextBlock",
+   "text": "• **NOS Master** – Fuel entered 133 L vs measured 87 L (+53%) **@Team OPS**",
+   "wrap": true,
+   "spacing": "Small"
+  },
+  {
+   "type": "TextBlock",
+   "text": "• **NOS Proceeder** – Fuel entered 434 L vs measured 356 L (+22%) **@Team OPS**",
+   "wrap": true,
+   "spacing": "Small"
+  },
+  {
+   "type": "ColumnSet",
+   "spacing": "Small",
+   "columns": [
+    {
+     "type": "Column",
+     "width": "stretch",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "✅ Resolved (11)",
+       "wrap": true,
+       "color": "Good"
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "▸",
+       "wrap": true,
+       "isSubtle": true
+      }
+     ]
+    }
+   ],
+   "selectAction": {
+    "type": "Action.ToggleVisibility",
+    "targetElements": [
+     "resolved"
+    ]
+   }
+  },
+  {
+   "type": "Container",
+   "id": "resolved",
+   "isVisible": false,
+   "spacing": "None",
+   "style": "emphasis",
+   "items": [
+    {
+     "type": "TextBlock",
+     "text": "• **Grampian Kestrel** – Weather overview empty, no valid Hs (source onboard)",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **HST Plymouth** – Fuel entered 100 L vs measured 4 L (+2400%)",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Bringer** – 1 missed transfer logged",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Maintainer** – Hs missing (flat 0) during 3 of 3 turbine transfers (11:18–17:22), source VF API",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Maintainer** – Route 02:04–08:53 ends before harbour arrival 17:45, data 10:56–17:45",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Maker** – Route 02:04–04:33 ends before harbour arrival 14:50, data 12:19–14:50",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Master** – Fuel entered missing (measured 4 L)",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Placer** – Fuel entered 139 L vs measured 9 L (+1444%)",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Prevailer** – Fuel entered 40 L vs measured 14 L (+186%)",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NR Rebellion** – Fuel entered missing (measured 3 L)",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **Windcat 51** – Fuel entered missing (measured 7 L)",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    }
+   ]
+  },
+  {
+   "type": "TextBlock",
+   "text": "ROOT CAUSES",
+   "wrap": true,
+   "weight": "Bolder",
+   "spacing": "Medium",
+   "separator": true
+  },
+  {
+   "type": "ColumnSet",
+   "spacing": "Small",
+   "columns": [
+    {
+     "type": "Column",
+     "width": "90px",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**@Team Data**",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "stretch",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "Portal route / timeline time-shift",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**5** vessels",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "▸",
+       "wrap": true,
+       "isSubtle": true
+      }
+     ]
+    }
+   ],
+   "selectAction": {
+    "type": "Action.ToggleVisibility",
+    "targetElements": [
+     "c_route_shift"
+    ]
+   }
+  },
+  {
+   "type": "Container",
+   "id": "c_route_shift",
+   "isVisible": false,
+   "spacing": "None",
+   "style": "emphasis",
+   "items": [
+    {
+     "type": "TextBlock",
+     "text": "**Grampian Thames**: Timeline misses 1 logged transfer (23:40–00:39; 10 of 11 on the timeline)",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Bolder**: Route 02:05–02:24 ends before harbour arrival 16:24, data 16:04–16:24",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Bringer**: Route 02:06–05:52 ends before harbour arrival 11:25, data 07:37–11:25",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Placer**: Route 02:04–02:13 ends before harbour arrival 12:34, data 12:23–12:34",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Proceeder**: Timeline misses 7 logged transfers (09:18–18:13; 0 of 7 on the timeline); Timeline ends 09:11, data runs to 18:36; Route 02:18–11:58 ends before harbour arrival 18:35, data 08:55–18:36",
+     "wrap": true,
+     "spacing": "None",
+     "size": "Small"
+    }
+   ]
+  },
+  {
+   "type": "ColumnSet",
+   "spacing": "Small",
+   "columns": [
+    {
+     "type": "Column",
+     "width": "90px",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**@Team OPS**",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "stretch",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "VF API wave data broken (zeros / empty)",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**11** vessels",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "▸",
+       "wrap": true,
+       "isSubtle": true
+      }
+     ]
+    }
+   ],
+   "selectAction": {
+    "type": "Action.ToggleVisibility",
+    "targetElements": [
+     "c_vf_api"
+    ]
+   }
+  },
+  {
+   "type": "Container",
+   "id": "c_vf_api",
+   "isVisible": false,
+   "spacing": "None",
+   "style": "emphasis",
+   "items": [
+    {
+     "type": "TextBlock",
+     "text": "Cwind Tempest, Cwind Tornado, NOS Maintainer, NOS Maker, NOS Piloter, NOS Placer, NOS Prevailer, NOS Proceeder, Windcat 38, Windcat 41, Windcat 51",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    }
+   ]
+  },
+  {
+   "type": "ColumnSet",
+   "spacing": "Small",
+   "columns": [
+    {
+     "type": "Column",
+     "width": "90px",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**@Team OPS**",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "stretch",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "Wave source has no data in the portal",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**8** vessels",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "▸",
+       "wrap": true,
+       "isSubtle": true
+      }
+     ]
+    }
+   ],
+   "selectAction": {
+    "type": "Action.ToggleVisibility",
+    "targetElements": [
+     "c_source_not_in_portal"
+    ]
+   }
+  },
+  {
+   "type": "Container",
+   "id": "c_source_not_in_portal",
+   "isVisible": false,
+   "spacing": "None",
+   "style": "emphasis",
+   "items": [
+    {
+     "type": "TextBlock",
+     "text": "HST Plymouth, NOS Bolder, NOS Traveller, Offshore Waddenzee, SC Ruby, Windcat 47, Windcat 50, Windcat Dorothea",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    }
+   ]
+  },
+  {
+   "type": "ColumnSet",
+   "spacing": "Small",
+   "columns": [
+    {
+     "type": "Column",
+     "width": "90px",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**@Team OPS**",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "stretch",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "SOV wave radar empty",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**11** vessels",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "▸",
+       "wrap": true,
+       "isSubtle": true
+      }
+     ]
+    }
+   ],
+   "selectAction": {
+    "type": "Action.ToggleVisibility",
+    "targetElements": [
+     "c_radar_empty"
+    ]
+   }
+  },
+  {
+   "type": "Container",
+   "id": "c_radar_empty",
+   "isVisible": false,
+   "spacing": "None",
+   "style": "emphasis",
+   "items": [
+    {
+     "type": "TextBlock",
+     "text": "Boka Ndeavor, Bokalift 1, Connector, Crowley Barge, Grampian Rhine, Vole au vent, Wavemaster Horizon, Wind Scylla, Windward Athens, Windward Munich, Windward Paris",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    }
+   ]
+  },
+  {
+   "type": "ColumnSet",
+   "spacing": "Small",
+   "columns": [
+    {
+     "type": "Column",
+     "width": "90px",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**@Team OPS**",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "stretch",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "No wave source configured",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**4** vessels",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "▸",
+       "wrap": true,
+       "isSubtle": true
+      }
+     ]
+    }
+   ],
+   "selectAction": {
+    "type": "Action.ToggleVisibility",
+    "targetElements": [
+     "c_no_wave_source"
+    ]
+   }
+  },
+  {
+   "type": "Container",
+   "id": "c_no_wave_source",
+   "isVisible": false,
+   "spacing": "None",
+   "style": "emphasis",
+   "items": [
+    {
+     "type": "TextBlock",
+     "text": "HST Hudson, Njord Snipe, NR Rebellion, Surfer 2560",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    }
+   ]
+  },
+  {
+   "type": "TextBlock",
+   "text": "BY TOPIC",
+   "wrap": true,
+   "weight": "Bolder",
+   "spacing": "Medium",
+   "separator": true
+  },
+  {
+   "type": "ColumnSet",
+   "spacing": "Small",
+   "columns": [
+    {
+     "type": "Column",
+     "width": "90px",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "**@Team OPS**",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "stretch",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "Fuel",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "12 vessels (⚠ 6 small)",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "▸",
+       "wrap": true,
+       "isSubtle": true
+      }
+     ]
+    }
+   ],
+   "selectAction": {
+    "type": "Action.ToggleVisibility",
+    "targetElements": [
+     "s_fuel"
+    ]
+   }
+  },
+  {
+   "type": "Container",
+   "id": "s_fuel",
+   "isVisible": false,
+   "spacing": "None",
+   "style": "emphasis",
+   "items": [
+    {
+     "type": "TextBlock",
+     "text": "• **Cwind Tornado** – Fuel measured missing (entered 55 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Bolder** – Fuel entered missing (measured 70 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Bringer** – Fuel measured missing (entered 120 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Master** – Fuel entered 133 L vs measured 87 L (+53%)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Proceeder** – Fuel entered 434 L vs measured 356 L (+22%)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **Windcat 41** – Fuel entered 150 L vs measured 12 L (+1150%)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Piloter** – ⚠ Fuel entered missing (measured 5 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Placer** – ⚠ Fuel entered missing (measured 37 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **NOS Prevailer** – ⚠ Fuel entered missing (measured 4 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **SC Amethyst** – ⚠ Fuel measured missing (entered 40 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **Windcat 38** – ⚠ Fuel entered missing (measured 4 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "• **Windcat Dorothea** – ⚠ Fuel entered missing (measured 1 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    }
+   ]
+  },
+  {
+   "type": "ColumnSet",
+   "spacing": "Small",
+   "columns": [
+    {
+     "type": "Column",
+     "width": "90px",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "stretch",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "DPR",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "4 not filled · 3 not signed off · 26 not created",
+       "wrap": true
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "▸",
+       "wrap": true,
+       "isSubtle": true
+      }
+     ]
+    }
+   ],
+   "selectAction": {
+    "type": "Action.ToggleVisibility",
+    "targetElements": [
+     "s_dpr"
+    ]
+   }
+  },
+  {
+   "type": "Container",
+   "id": "s_dpr",
+   "isVisible": false,
+   "spacing": "None",
+   "style": "emphasis",
+   "items": [
+    {
+     "type": "TextBlock",
+     "text": "**Not filled:** Grampian Rhine, NOS Bringer, NR Rebellion, SC Onyx",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Not signed off:** Grampian Derwent, Grampian Tay, Wavemaster Horizon",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Not created:** Boka Ndeavor (24/09), Bokalift 1 (24/09), Bokalift 2 (27/09), Connector (24/09), Crowley Barge (24/09), Cwind Tempest (05/10), Grampian Tees (09/10), HST Hudson (07/10), HST Plymouth (09/10), Hydrocat 48 (02/10), MHO Esbjerg (07/10), Njord Snipe (08/10), NOS Mariner (08/10), NOS Placer (09/10), Offshore Waddenzee (07/10), SC Ruby (27/09), SOV example (03/10), Surfer 2560 (08/10), TEST MO4 (30/09), TEST MO4 2 (18/01), Vole au vent (24/09), Wind Scylla (05/10), Windcat 38 (30/09), Windcat Dorothea (30/09), Windward Athens (03/10), Windward Munich (08/10)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    }
+   ]
+  },
+  {
+   "type": "Container",
+   "spacing": "Medium",
+   "separator": true,
+   "items": []
+  },
+  {
+   "type": "ColumnSet",
+   "spacing": "Small",
+   "columns": [
+    {
+     "type": "Column",
+     "width": "stretch",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "All 50 vessels needing attention, per vessel",
+       "wrap": true,
+       "weight": "Bolder"
+      }
+     ],
+     "verticalContentAlignment": "Center"
+    },
+    {
+     "type": "Column",
+     "width": "auto",
+     "items": [
+      {
+       "type": "TextBlock",
+       "text": "▸",
+       "wrap": true,
+       "isSubtle": true
+      }
+     ]
+    }
+   ],
+   "selectAction": {
+    "type": "Action.ToggleVisibility",
+    "targetElements": [
+     "all"
+    ]
+   }
+  },
+  {
+   "type": "Container",
+   "id": "all",
+   "isVisible": false,
+   "spacing": "None",
+   "style": "emphasis",
+   "items": [
+    {
+     "type": "TextBlock",
+     "text": "**Boka Ndeavor**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)\n- DPR not created, last DPR 24/09",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Bokalift 1**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)\n- DPR not created, last DPR 24/09",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Bokalift 2**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- No raw data, not synced – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline) (Team Data)\n- DPR not created, last DPR 27/09",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Brouwersgracht**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- No raw data, not synced – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline) (Team Data)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Connector**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)\n- DPR not created, last DPR 24/09",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Crowley Barge**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)\n- DPR not created, last DPR 24/09",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Cwind Tempest**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source VF API)\n- DPR not created, last DPR 05/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Cwind Tornado**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source VF API)\n- Fuel measured missing (entered 55 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Grampian Derwent**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- DPR not signed off",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Grampian Rhine**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)\n- DPR not filled",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Grampian Tay**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- DPR not signed off",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Grampian Tees**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- DPR not created, last DPR 09/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Grampian Thames**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Timeline misses 1 logged transfer (23:40–00:39; 10 of 11 on the timeline)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**HST Hudson**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available\n- DPR not created, last DPR 07/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**HST Plymouth**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available (source buoy, Fugro)\n- DPR not created, last DPR 09/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Hydrocat 48**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- DPR not created, last DPR 02/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**MHO Esbjerg**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- DPR not created, last DPR 07/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Njord Snipe**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available\n- DPR not created, last DPR 08/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Bolder**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Route 02:05–02:24 ends before harbour arrival 16:24, data 16:04–16:24 (Team Data)\n- Wave data not available (source WTG11, Miros) (Team OPS)\n- Fuel entered missing (measured 70 L) (Team OPS)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Bringer**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Route 02:06–05:52 ends before harbour arrival 11:25, data 07:37–11:25 (Team Data)\n- Fuel measured missing (entered 120 L) (Team OPS)\n- DPR not filled",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Maintainer**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source VF API)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Maker**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source VF API)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Mariner**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- No raw data, not synced – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline) (Team Data)\n- DPR not created, last DPR 08/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Master**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Fuel entered 133 L vs measured 87 L (+53%)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Piloter**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source VF API)\n- ⚠ Fuel entered missing (measured 5 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Placer**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Route 02:04–02:13 ends before harbour arrival 12:34, data 12:23–12:34 (Team Data)\n- Weather overview empty, no valid Hs (source VF API) (Team OPS)\n- ⚠ Fuel entered missing (measured 37 L) (Team OPS)\n- DPR not created, last DPR 09/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Prevailer**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source VF API)\n- ⚠ Fuel entered missing (measured 4 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Proceeder**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Timeline misses 7 logged transfers (09:18–18:13; 0 of 7 on the timeline) (Team Data)\n- Timeline ends 09:11, data runs to 18:36 (Team Data)\n- Route 02:18–11:58 ends before harbour arrival 18:35, data 08:55–18:36 (Team Data)\n- Weather overview empty, no valid Hs (source VF API) (Team OPS)\n- Fuel entered 434 L vs measured 356 L (+22%) (Team OPS)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NOS Traveller**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available (source WTG11, Miros)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**NR Rebellion**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available\n- DPR not filled",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Offshore Waddenzee**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available (source buoy, Stormgeo)\n- DPR not created, last DPR 07/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**SC Amethyst**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- ⚠ Fuel measured missing (entered 40 L)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**SC Onyx**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- DPR not filled",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**SC Ruby**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available (source Borssele_51.700_3.057, Hermess nowcast)\n- DPR not created, last DPR 27/09",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**SOV example**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- No raw data, not synced – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline) (Team Data)\n- DPR not created, last DPR 03/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Surfer 2560**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available\n- DPR not created, last DPR 08/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**TEST MO4**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- No raw data, not synced – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline) (Team Data)\n- DPR not created, last DPR 30/09",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**TEST MO4 2**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- No raw data, not synced – no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline) (Team Data)\n- DPR not created, last DPR 18/01",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Vole au vent**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)\n- DPR not created, last DPR 24/09",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Wavemaster Horizon**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)\n- DPR not signed off",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Wind Scylla**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)\n- DPR not created, last DPR 05/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Windcat 38**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source VF API)\n- ⚠ Fuel entered missing (measured 4 L)\n- DPR not created, last DPR 30/09",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Windcat 41**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source VF API)\n- Fuel entered 150 L vs measured 12 L (+1150%)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Windcat 47**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available (source buoy, Fugro)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Windcat 50**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available (source buoy, Fugro)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Windcat 51**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source VF API)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Windcat Dorothea**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Wave data not available (source Rotterdamse Hoek, Stormgeo)\n- ⚠ Fuel entered missing (measured 1 L)\n- DPR not created, last DPR 30/09",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Windward Athens**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)\n- DPR not created, last DPR 03/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Windward Munich**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)\n- DPR not created, last DPR 08/10",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    },
+    {
+     "type": "TextBlock",
+     "text": "**Windward Paris**",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "Small"
+    },
+    {
+     "type": "TextBlock",
+     "text": "- Weather overview empty, no valid Hs (source onboard)",
+     "wrap": true,
+     "size": "Small",
+     "spacing": "None"
+    }
+   ]
+  },
+  {
+   "type": "TextBlock",
+   "text": "Known (6): Adele Bellis (daughtercraft), Alison Kay (daughtercraft), Alison Mantripp (daughtercraft), Grace Darling (daughtercraft), Rachel Parsons (daughtercraft), Susan Auld (daughtercraft)\n\nClean (9): Bloemgracht, Grampian Eagle, Grampian Goelo, Grampian Kestrel, Grampian Tweed, Grampian Tyne, MO8, WaveMaster1, Xin Yao Hua\n\nOff-hire, not checked: 168",
+   "wrap": true,
+   "isSubtle": true,
+   "size": "Small",
+   "spacing": "Medium"
+  }
+ ]
+}

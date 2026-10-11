@@ -49,14 +49,21 @@ ops-check run --slot recheck
 ops-check watchdog --slot morning
 ```
 
-## Schedule (D5, D7) – Europe/Amsterdam
+## Schedule (D5, D7) – phase 1 on Martijn's MacBook
 
-```cron
-30 7  * * *  cd /opt/ops-check && .venv/bin/ops-check run --slot morning
-45 7  * * *  cd /opt/ops-check && .venv/bin/ops-check watchdog --slot morning
-0  11 * * *  cd /opt/ops-check && .venv/bin/ops-check run --slot recheck
-15 11 * * *  cd /opt/ops-check && .venv/bin/ops-check watchdog --slot recheck
+Four launchd jobs (Europe/Amsterdam, every day): 07:30 run, 07:45 watchdog, 11:00 recheck, 11:15 watchdog.
+Each calls `scripts/scheduled-run.sh`, which waits for the network, mounts the shares in `SHARE_URLS`
+if needed, and runs `ops-check` while keeping the Mac awake. Logs: `logs/<date>.log`.
+
+```bash
+scripts/install-launchd.sh                         # install / reinstall (scripts/install-launchd.sh --remove)
+sudo pmset repeat wakeorpoweron MTWRFSU 07:25:00   # wake the Mac before the 07:30 run
+launchctl kickstart gui/$(id -u)/online.mo4.opscheck.morning   # test now (posts to Teams)
 ```
+
+A job that was due while the Mac slept runs when it wakes. Scheduled wake only works on power,
+with the lid open (or closed with an external display). If the shares can't be mounted, the post
+still goes out but says INCOMPLETE at the top.
 
 ## Layout
 

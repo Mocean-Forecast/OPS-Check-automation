@@ -7,7 +7,12 @@ priority = ["Windcat Dorothea", "Offshore Waddenzee", "Bloemgracht"]
 
 # Never checked: MO4 test / demo systems. (Client "MO4" alone does NOT exclude a vessel:
 # HST Hudson has client MO4 and is a real vessel.)
-exclude = ["MO4_test_wc47"]
+exclude = [
+    "MO4_test_wc47",
+    "SOV_example",   # "SOV example", mmsi 987654321 – placeholder, on hire in the registry
+    "Test_BMO",      # "TEST MO4",    mmsi 123456789
+    "Test_BMO2",     # "TEST MO4 2",  mmsi 123456788
+]
 
 # Extra folder names, for vessels whose folder on a share differs from `vesselname`.
 # Matching ignores case and treats spaces/hyphens as underscores. All matching folders are merged.

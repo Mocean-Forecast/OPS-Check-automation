@@ -1,0 +1,31 @@
+{
+ "vessel": "Brouwersgracht",
+ "day": "2026-10-10",
+ "input": {
+  "vessel_type": "transit",
+  "dpr": null,
+  "fuel_measured_l": null,
+  "timeline": [],
+  "wave": null,
+  "wave_source_hint": null,
+  "missed": [],
+  "last_dpr_day": null,
+  "logged": [],
+  "data_start": null,
+  "data_end": null,
+  "route_start": null,
+  "route_end": null,
+  "harbour_arrival": null,
+  "recorded": null,
+  "vmru": {},
+  "vmru_expected": [],
+  "last_trace": "2026-09-24T23:45:00.000003+00:00",
+  "project": {
+   "name": "Dataviewer Brouwersgracht",
+   "start": "2024-11-12T09:02:32+00:00",
+   "end": null,
+   "origin": "Origin Port",
+   "destination": "Destination Port"
+  }
+ }
+}

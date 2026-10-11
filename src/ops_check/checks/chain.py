@@ -109,7 +109,9 @@ def arrival_and_processing(v: Vessel, ev: Evidence, day: date, now: datetime,
                                          f"archive in FTP_VESSEL_DATA ({age} h), awaiting move",
                                          age_h=age)]
     msg = "no data arrived"
-    if not ev.folder_found:
+    if not ev.shares_checked:
+        msg = "no data in MongoDB (shares not reachable, so it may also be stuck in the pipeline)"
+    elif not ev.folder_found:
         msg += f" (no folder '{v.system}' on the shares)" if v.system else " (no system name in registry)"
     return Diagnosis.OFFLINE, [_f(v, day, Stage.RAW, "raw_arrival", Severity.FAIL, Owner.OPS, msg,
                                   has_recorded_code=ev.has_recorded_code)]

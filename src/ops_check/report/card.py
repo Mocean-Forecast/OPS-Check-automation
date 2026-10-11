@@ -42,6 +42,8 @@ def render_card(m: Message) -> dict[str, Any]:
         _text(m.title, weight="Bolder", size="Large"),
         _text(m.subtitle, isSubtle=True, spacing="None"),
     ]
+    if m.banner:
+        body.append(_text(f"⚠ {m.banner}", color="Attention", weight="Bolder", spacing="Small"))
     if m.summary:
         body.append(_text(m.summary, spacing="Small"))
 

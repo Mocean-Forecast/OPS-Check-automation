@@ -1,0 +1,1058 @@
+{
+ "vessel": "Windcat 51",
+ "day": "2026-10-03",
+ "input": {
+  "vessel_type": "CTV",
+  "dpr": {
+   "mmsi": 232039518,
+   "date": 740258,
+   "accessDayType": "FULL_ACCESS",
+   "remarks": "(remarks redacted)",
+   "consumptionList": [
+    {
+     "name": "Fuel tank",
+     "type": "Diesel",
+     "startOfDay": 6605,
+     "consumed": 1250,
+     "discharged": 0,
+     "bunkered": 0,
+     "remaining": 5355
+    }
+   ],
+   "signOff": {
+    "signOffStatus": 1,
+    "signedOffByClient": "",
+    "signedOffByVesselmaster": "redacted",
+    "signOffRemarks": "",
+    "confirmedByClientRepresentative": "",
+    "refusedByClientRepresentative": ""
+   },
+   "lastModified": 1791098198.706,
+   "schemaVersion": 5
+  },
+  "fuel_measured_l": 1131.0,
+  "timeline": [
+   {
+    "event_type": "system offline",
+    "event_name": "System offline near IJmuiden",
+    "start_time": "2026-10-03T00:00:00Z",
+    "end_time": "2026-10-03T05:37:40Z",
+    "details": {}
+   },
+   {
+    "event_type": "transit",
+    "event_name": "Transit IJmuiden - Hollandse Kust Zuid 1",
+    "start_time": "2026-10-03T05:37:40Z",
+    "end_time": "2026-10-03T06:05:50Z",
+    "details": {
+     "from": "IJmuiden",
+     "to": "Hollandse Kust Zuid 1",
+     "fuel usage": 178.6
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field to HZW3",
+    "start_time": "2026-10-03T06:05:50Z",
+    "end_time": "2026-10-03T06:06:50Z",
+    "details": {
+     "to": "HZW3",
+     "field": "Hollandse Kust Zuid 4",
+     "fuel usage": 6.3,
+     "Hs": 0.48776,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZW3",
+    "start_time": "2026-10-03T06:06:50Z",
+    "end_time": "2026-10-03T06:17:40Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 4",
+     "fuel usage": 28.2,
+     "Hs": 0.48776,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field HZW3 - HZA4",
+    "start_time": "2026-10-03T06:17:40Z",
+    "end_time": "2026-10-03T06:28:30Z",
+    "details": {
+     "from": "HZW3",
+     "to": "HZA4",
+     "field": "Hollandse Kust Zuid 4",
+     "fuel usage": 65,
+     "Hs": 0.48280499996723,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZA4",
+    "start_time": "2026-10-03T06:28:30Z",
+    "end_time": "2026-10-03T06:38:40Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 29.8,
+     "Hs": 0.48280499996723,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field HZA4 - HZC3",
+    "start_time": "2026-10-03T06:38:40Z",
+    "end_time": "2026-10-03T06:45:20Z",
+    "details": {
+     "from": "HZA4",
+     "to": "HZC3",
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 37.4
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZC3",
+    "start_time": "2026-10-03T06:45:20Z",
+    "end_time": "2026-10-03T07:00:00Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 43.6
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field HZC3 - HZA3",
+    "start_time": "2026-10-03T07:00:00Z",
+    "end_time": "2026-10-03T07:06:10Z",
+    "details": {
+     "from": "HZC3",
+     "to": "HZA3",
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 31.5
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZA3",
+    "start_time": "2026-10-03T07:06:10Z",
+    "end_time": "2026-10-03T07:09:30Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 10.1,
+     "Hs": 0.46927499996287,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "waiting tied off",
+    "event_name": "Tied off at HZA3",
+    "start_time": "2026-10-03T07:09:30Z",
+    "end_time": "2026-10-03T08:49:30Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 1.4,
+     "Hs": 0.44901500032128,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting at turbine HZA3",
+    "start_time": "2026-10-03T08:49:30Z",
+    "end_time": "2026-10-03T09:01:30Z",
+    "details": {
+     "fuel usage": 0,
+     "Hs": 0.40683,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field Hollandse Kust Zuid 1",
+    "start_time": "2026-10-03T09:01:30Z",
+    "end_time": "2026-10-03T09:22:40Z",
+    "details": {
+     "fuel usage": 0,
+     "Hs": 0.40683,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field from HZA3",
+    "start_time": "2026-10-03T09:22:40Z",
+    "end_time": "2026-10-03T09:29:10Z",
+    "details": {
+     "from": "HZA3",
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 16.1,
+     "Hs": 0.38137500006328,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field Hollandse Kust Zuid 4",
+    "start_time": "2026-10-03T09:29:10Z",
+    "end_time": "2026-10-03T09:31:00Z",
+    "details": {
+     "fuel usage": 0.3,
+     "Hs": 0.38137500006328,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZY5",
+    "start_time": "2026-10-03T09:31:00Z",
+    "end_time": "2026-10-03T09:33:40Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 4",
+     "fuel usage": 4,
+     "Hs": 0.38137500006328,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field HZY5 - HZA4",
+    "start_time": "2026-10-03T09:33:40Z",
+    "end_time": "2026-10-03T09:38:30Z",
+    "details": {
+     "from": "HZY5",
+     "to": "HZA4",
+     "field": "Hollandse Kust Zuid 4",
+     "fuel usage": 24.8,
+     "Hs": 0.38137500006328,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZA4",
+    "start_time": "2026-10-03T09:38:30Z",
+    "end_time": "2026-10-03T09:42:10Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 8.1,
+     "Hs": 0.38137500006328,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field HZA4 - HZA3",
+    "start_time": "2026-10-03T09:42:10Z",
+    "end_time": "2026-10-03T09:45:00Z",
+    "details": {
+     "from": "HZA4",
+     "to": "HZA3",
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 10.9,
+     "Hs": 0.38137500006328,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZA3",
+    "start_time": "2026-10-03T09:45:00Z",
+    "end_time": "2026-10-03T09:50:30Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 8,
+     "Hs": 0.38367000008818,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field Hollandse Kust Zuid 1",
+    "start_time": "2026-10-03T09:50:30Z",
+    "end_time": "2026-10-03T09:54:50Z",
+    "details": {
+     "fuel usage": 0.4,
+     "Hs": 0.38367000008818,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field HZA3 - HZE3",
+    "start_time": "2026-10-03T09:54:50Z",
+    "end_time": "2026-10-03T10:11:50Z",
+    "details": {
+     "from": "HZA3",
+     "to": "HZE3",
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 88.3
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZE3",
+    "start_time": "2026-10-03T10:11:50Z",
+    "end_time": "2026-10-03T10:18:40Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 19
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field HZE3 - HZA3",
+    "start_time": "2026-10-03T10:18:40Z",
+    "end_time": "2026-10-03T10:33:10Z",
+    "details": {
+     "from": "HZE3",
+     "to": "HZA3",
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 88.8
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZA3",
+    "start_time": "2026-10-03T10:33:10Z",
+    "end_time": "2026-10-03T10:36:30Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 9.1,
+     "Hs": 0.38255,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "waiting tied off",
+    "event_name": "Tied off at HZA3",
+    "start_time": "2026-10-03T10:36:30Z",
+    "end_time": "2026-10-03T13:11:20Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 1.8,
+     "Hs": 0.408145,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field Hollandse Kust Zuid 1",
+    "start_time": "2026-10-03T13:11:20Z",
+    "end_time": "2026-10-03T13:13:40Z",
+    "details": {
+     "fuel usage": 0.6,
+     "Hs": 0.40355000009254,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field to HZA4",
+    "start_time": "2026-10-03T13:13:40Z",
+    "end_time": "2026-10-03T13:17:30Z",
+    "details": {
+     "to": "HZA4",
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 13.2,
+     "Hs": 0.39912,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZA4",
+    "start_time": "2026-10-03T13:17:30Z",
+    "end_time": "2026-10-03T13:27:40Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 27.6,
+     "Hs": 0.39912,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field HZA4 - HZC3",
+    "start_time": "2026-10-03T13:27:40Z",
+    "end_time": "2026-10-03T13:34:00Z",
+    "details": {
+     "from": "HZA4",
+     "to": "HZC3",
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 36.1
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZC3",
+    "start_time": "2026-10-03T13:34:00Z",
+    "end_time": "2026-10-03T13:44:00Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 32.4
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field HZC3 - HZW3",
+    "start_time": "2026-10-03T13:44:00Z",
+    "end_time": "2026-10-03T14:01:30Z",
+    "details": {
+     "from": "HZC3",
+     "to": "HZW3",
+     "field": "Hollandse Kust Zuid 1",
+     "fuel usage": 107.4,
+     "Hs": 0.43985999973932,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at HZW3",
+    "start_time": "2026-10-03T14:01:30Z",
+    "end_time": "2026-10-03T14:09:50Z",
+    "details": {
+     "field": "Hollandse Kust Zuid 4",
+     "fuel usage": 25.6,
+     "Hs": 0.43985999973932,
+     "wave source": "659d947110e6c9233a5d97e1"
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field from HZW3",
+    "start_time": "2026-10-03T14:09:50Z",
+    "end_time": "2026-10-03T14:10:50Z",
+    "details": {
+     "from": "HZW3",
+     "field": "Hollandse Kust Zuid 4",
+     "fuel usage": 2.2
+    }
+   },
+   {
+    "event_type": "transit",
+    "event_name": "Transit Hollandse Kust Zuid 1 - IJmuiden",
+    "start_time": "2026-10-03T14:10:50Z",
+    "end_time": "2026-10-03T14:38:00Z",
+    "details": {
+     "from": "Hollandse Kust Zuid 1",
+     "to": "IJmuiden",
+     "fuel usage": 173.6
+    }
+   },
+   {
+    "event_type": "port",
+    "event_name": "Port IJmuiden",
+    "start_time": "2026-10-03T14:38:00Z",
+    "end_time": "2026-10-03T14:38:10Z",
+    "details": {
+     "port": "IJmuiden",
+     "fuel usage": 1.1
+    }
+   },
+   {
+    "event_type": "system offline",
+    "event_name": "System offline near IJmuiden",
+    "start_time": "2026-10-03T14:38:10Z",
+    "end_time": "2026-10-04T00:00:00Z",
+    "details": {}
+   }
+  ],
+  "wave": {
+   "label": "VF API",
+   "source_id": "659d947110e6c9233a5d97e1",
+   "resolution_min": 15.0,
+   "samples": [
+    [
+     "2026-10-02T23:15:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-02T23:30:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-02T23:45:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-03T23:15:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-03T23:30:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-03T23:45:00+00:00",
+     0.0,
+     true
+    ],
+    [
+     "2026-10-04T00:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T00:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T00:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T00:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T01:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T01:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T01:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T01:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T02:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T02:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T02:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T02:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T03:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T03:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T03:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T03:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T04:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T04:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T04:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T04:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T05:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T05:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T05:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T05:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T06:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T06:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T06:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T06:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T07:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T07:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T07:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T07:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T08:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T08:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T08:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T08:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T09:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T09:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T09:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T09:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T10:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T10:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T10:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T10:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T11:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T11:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T11:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T11:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T12:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T12:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T12:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T12:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T13:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T13:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T13:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T13:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T14:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T14:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T14:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T14:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T15:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T15:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T15:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T15:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T16:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T16:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T16:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T16:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T17:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T17:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T17:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T17:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T18:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T18:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T18:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T18:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T19:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T19:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T19:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T19:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T20:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T20:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T20:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T20:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T21:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T21:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T21:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T21:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T22:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T22:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T22:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T22:45:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T23:00:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T23:15:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T23:30:00+00:00",
+     null,
+     true
+    ],
+    [
+     "2026-10-04T23:45:00+00:00",
+     null,
+     true
+    ]
+   ]
+  },
+  "wave_source_hint": null,
+  "missed": [],
+  "last_dpr_day": null,
+  "logged": [
+   {
+    "start": "2026-10-03T06:07:27.354142+00:00",
+    "stop": "2026-10-03T06:16:53.078884+00:00",
+    "location": "HZW3"
+   },
+   {
+    "start": "2026-10-03T06:28:58.953795+00:00",
+    "stop": "2026-10-03T06:37:46.128575+00:00",
+    "location": "HZA4"
+   },
+   {
+    "start": "2026-10-03T06:45:48.929185+00:00",
+    "stop": "2026-10-03T06:58:51.378814+00:00",
+    "location": "HZC3"
+   },
+   {
+    "start": "2026-10-03T07:06:35.204260+00:00",
+    "stop": "2026-10-03T07:09:21.578685+00:00",
+    "location": "HZA3"
+   },
+   {
+    "start": "2026-10-03T09:31:27.478849+00:00",
+    "stop": "2026-10-03T09:32:55.604251+00:00",
+    "location": "HZY5"
+   },
+   {
+    "start": "2026-10-03T09:39:06.778661+00:00",
+    "stop": "2026-10-03T09:40:56.229315+00:00",
+    "location": "HZA4"
+   },
+   {
+    "start": "2026-10-03T09:45:54.103680+00:00",
+    "stop": "2026-10-03T09:47:51.654340+00:00",
+    "location": "HZA3"
+   },
+   {
+    "start": "2026-10-03T10:12:28.328828+00:00",
+    "stop": "2026-10-03T10:17:57.353859+00:00",
+    "location": "HZE3"
+   },
+   {
+    "start": "2026-10-03T10:34:11.829211+00:00",
+    "stop": "2026-10-03T10:36:17.654399+00:00",
+    "location": "HZA3"
+   },
+   {
+    "start": "2026-10-03T13:18:01.429345+00:00",
+    "stop": "2026-10-03T13:27:09.328898+00:00",
+    "location": "HZA4"
+   },
+   {
+    "start": "2026-10-03T13:34:28.329021+00:00",
+    "stop": "2026-10-03T13:43:31.728860+00:00",
+    "location": "HZC3"
+   },
+   {
+    "start": "2026-10-03T14:02:08.628575+00:00",
+    "stop": "2026-10-03T14:09:06.003650+00:00",
+    "location": "HZW3"
+   }
+  ],
+  "data_start": "2026-10-03T05:37:39+00:00",
+  "data_end": "2026-10-03T14:37:59+00:00",
+  "route_start": "2026-10-03T03:51:47+00:00",
+  "route_end": "2026-10-03T12:50:19+00:00",
+  "harbour_arrival": "2026-10-03T14:37:55+00:00",
+  "recorded": true,
+  "vmru": {},
+  "vmru_expected": [],
+  "last_trace": null,
+  "project": null
+ }
+}

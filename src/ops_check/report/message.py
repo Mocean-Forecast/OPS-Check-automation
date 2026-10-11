@@ -45,6 +45,7 @@ class Message:
     registry: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
     summary: str | None = None
+    banner: str | None = None
     off_hire: int = 0
     excluded: int = 0
 
@@ -80,6 +81,9 @@ def build_message(run: dict[str, Any], diff: RunDiff | None = None,
         warnings=list(run.get("warnings") or []),
         summary=summary,
     )
+    if run.get("shares_missing"):
+        m.banner = ("INCOMPLETE: file shares not reachable from the check machine. Only MongoDB "
+                    "was checked; 'Offline' may include vessels stuck in the pipeline.")
 
     def item(r: dict[str, Any]) -> Item:
         k = _key(r)
@@ -132,6 +136,8 @@ def priority_alerts(m: Message) -> list[Item]:
 def render_text(m: Message) -> str:
     tag = {Change.NEW: "[NEW] ", Change.CHANGED: "[CHANGED] ", Change.SAME: "", Change.RESOLVED: "[RESOLVED] "}
     lines = [f"{m.title} · {m.subtitle}", ""]
+    if m.banner:
+        lines += [f"!! {m.banner}", ""]
     if m.summary:
         lines += [m.summary, ""]
     lines.append("NEEDS ACTION" if m.action else "NEEDS ACTION: none")

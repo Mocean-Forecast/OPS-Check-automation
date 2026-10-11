@@ -1,0 +1,577 @@
+{
+ "vessel": "NOS Bolder",
+ "day": "2026-10-03",
+ "input": {
+  "vessel_type": "CTV",
+  "dpr": {
+   "mmsi": 219017204,
+   "date": 740258,
+   "accessDayType": "FULL_ACCESS",
+   "remarks": "",
+   "consumptionList": [
+    {
+     "name": "Fuel tank",
+     "type": "Diesel",
+     "startOfDay": 4344,
+     "consumed": 794,
+     "discharged": 0,
+     "bunkered": 0,
+     "remaining": 3550
+    },
+    {
+     "name": "Water tank",
+     "type": "Water",
+     "startOfDay": 700,
+     "consumed": 50,
+     "discharged": 0,
+     "bunkered": 0,
+     "remaining": 650
+    }
+   ],
+   "signOff": {
+    "signOffStatus": 0,
+    "signedOffByVesselmaster": "",
+    "signOffRemarks": ""
+   },
+   "lastModified": 1791087070.371,
+   "schemaVersion": 5
+  },
+  "fuel_measured_l": 671.0,
+  "timeline": [
+   {
+    "event_type": "system offline",
+    "event_name": "System offline near Klintholm",
+    "start_time": "2026-10-03T00:00:00Z",
+    "end_time": "2026-10-03T05:18:00Z",
+    "details": {}
+   },
+   {
+    "event_type": "port",
+    "event_name": "Port Klintholm",
+    "start_time": "2026-10-03T05:18:00Z",
+    "end_time": "2026-10-03T05:18:20Z",
+    "details": {
+     "port": "Klintholm",
+     "fuel usage": 1
+    }
+   },
+   {
+    "event_type": "transit",
+    "event_name": "Transit Klintholm - DKF",
+    "start_time": "2026-10-03T05:18:20Z",
+    "end_time": "2026-10-03T05:55:00Z",
+    "details": {
+     "from": "Klintholm",
+     "to": "DKF",
+     "fuel usage": 172
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field to DKF03R",
+    "start_time": "2026-10-03T05:55:00Z",
+    "end_time": "2026-10-03T06:03:30Z",
+    "details": {
+     "to": "DKF03R",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 42.4
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF03R",
+    "start_time": "2026-10-03T06:03:30Z",
+    "end_time": "2026-10-03T06:13:40Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 13.6
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field DKF03R - DKF01R",
+    "start_time": "2026-10-03T06:13:40Z",
+    "end_time": "2026-10-03T06:15:30Z",
+    "details": {
+     "from": "DKF03R",
+     "to": "DKF01R",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 7
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF01R",
+    "start_time": "2026-10-03T06:15:30Z",
+    "end_time": "2026-10-03T06:25:20Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 12
+    }
+   },
+   {
+    "event_type": "waiting tied off",
+    "event_name": "Tied off at DKF01R",
+    "start_time": "2026-10-03T06:25:20Z",
+    "end_time": "2026-10-03T07:54:50Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 3
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF01R",
+    "start_time": "2026-10-03T07:54:50Z",
+    "end_time": "2026-10-03T08:06:40Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 5
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field DKF01R - DKF03R",
+    "start_time": "2026-10-03T08:06:40Z",
+    "end_time": "2026-10-03T08:08:30Z",
+    "details": {
+     "from": "DKF01R",
+     "to": "DKF03R",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 6
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF03R",
+    "start_time": "2026-10-03T08:08:30Z",
+    "end_time": "2026-10-03T08:14:30Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 8
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field DKF03R - DKF05R",
+    "start_time": "2026-10-03T08:14:30Z",
+    "end_time": "2026-10-03T08:16:20Z",
+    "details": {
+     "from": "DKF03R",
+     "to": "DKF05R",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 7
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF05R",
+    "start_time": "2026-10-03T08:16:20Z",
+    "end_time": "2026-10-03T08:21:10Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 7
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field DKF05R - DKF07R",
+    "start_time": "2026-10-03T08:21:10Z",
+    "end_time": "2026-10-03T08:23:10Z",
+    "details": {
+     "from": "DKF05R",
+     "to": "DKF07R",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 7
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF07R",
+    "start_time": "2026-10-03T08:23:10Z",
+    "end_time": "2026-10-03T08:28:20Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 7
+    }
+   },
+   {
+    "event_type": "waiting tied off",
+    "event_name": "Tied off at DKF07R",
+    "start_time": "2026-10-03T08:28:20Z",
+    "end_time": "2026-10-03T09:44:00Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 2
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting at turbine DKF07R",
+    "start_time": "2026-10-03T09:44:00Z",
+    "end_time": "2026-10-03T09:45:10Z",
+    "details": {
+     "fuel usage": 1
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF07R",
+    "start_time": "2026-10-03T09:45:10Z",
+    "end_time": "2026-10-03T09:53:50Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 5
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field DKF07R - DKF05R",
+    "start_time": "2026-10-03T09:53:50Z",
+    "end_time": "2026-10-03T09:56:10Z",
+    "details": {
+     "from": "DKF07R",
+     "to": "DKF05R",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 8
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF05R",
+    "start_time": "2026-10-03T09:56:10Z",
+    "end_time": "2026-10-03T10:02:50Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 10
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field from DKF05R",
+    "start_time": "2026-10-03T10:02:50Z",
+    "end_time": "2026-10-03T10:27:30Z",
+    "details": {
+     "from": "DKF05R",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 26
+    }
+   },
+   {
+    "event_type": "waiting",
+    "event_name": "Waiting in field Danish Kriegers Flag",
+    "start_time": "2026-10-03T10:27:30Z",
+    "end_time": "2026-10-03T10:41:20Z",
+    "details": {
+     "fuel usage": 4
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field to DKF17N",
+    "start_time": "2026-10-03T10:41:20Z",
+    "end_time": "2026-10-03T10:42:10Z",
+    "details": {
+     "to": "DKF17N",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 0
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF17N",
+    "start_time": "2026-10-03T10:42:10Z",
+    "end_time": "2026-10-03T10:50:00Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 4
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field DKF17N - DKF22N",
+    "start_time": "2026-10-03T10:50:00Z",
+    "end_time": "2026-10-03T10:52:30Z",
+    "details": {
+     "from": "DKF17N",
+     "to": "DKF22N",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 8
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF22N",
+    "start_time": "2026-10-03T10:52:30Z",
+    "end_time": "2026-10-03T10:58:40Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 7
+    }
+   },
+   {
+    "event_type": "waiting tied off",
+    "event_name": "Tied off at DKF22N",
+    "start_time": "2026-10-03T10:58:40Z",
+    "end_time": "2026-10-03T12:33:00Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 2
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF22N",
+    "start_time": "2026-10-03T12:33:00Z",
+    "end_time": "2026-10-03T12:40:20Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 13
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field DKF22N - DKF23N",
+    "start_time": "2026-10-03T12:40:20Z",
+    "end_time": "2026-10-03T12:43:40Z",
+    "details": {
+     "from": "DKF22N",
+     "to": "DKF23N",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 13
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF23N",
+    "start_time": "2026-10-03T12:43:40Z",
+    "end_time": "2026-10-03T12:50:00Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 9
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field DKF23N - DKF17N",
+    "start_time": "2026-10-03T12:50:00Z",
+    "end_time": "2026-10-03T12:53:00Z",
+    "details": {
+     "from": "DKF23N",
+     "to": "DKF17N",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 12
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF17N",
+    "start_time": "2026-10-03T12:53:00Z",
+    "end_time": "2026-10-03T12:57:20Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 8
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field DKF17N - DKF16M",
+    "start_time": "2026-10-03T12:57:20Z",
+    "end_time": "2026-10-03T13:01:20Z",
+    "details": {
+     "from": "DKF17N",
+     "to": "DKF16M",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 16.3
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF16M",
+    "start_time": "2026-10-03T13:01:20Z",
+    "end_time": "2026-10-03T13:05:20Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 5.7
+    }
+   },
+   {
+    "event_type": "waiting tied off",
+    "event_name": "Tied off at DKF16M",
+    "start_time": "2026-10-03T13:05:20Z",
+    "end_time": "2026-10-03T14:20:40Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 2
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF16M",
+    "start_time": "2026-10-03T14:20:40Z",
+    "end_time": "2026-10-03T14:29:20Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 7
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field DKF16M - DKF23N",
+    "start_time": "2026-10-03T14:29:20Z",
+    "end_time": "2026-10-03T14:32:30Z",
+    "details": {
+     "from": "DKF16M",
+     "to": "DKF23N",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 13
+    }
+   },
+   {
+    "event_type": "docking",
+    "event_name": "Turbine transfer at DKF23N",
+    "start_time": "2026-10-03T14:32:30Z",
+    "end_time": "2026-10-03T14:38:30Z",
+    "details": {
+     "field": "DKF",
+     "fuel usage": 9
+    }
+   },
+   {
+    "event_type": "transit in field",
+    "event_name": "Transit in field from DKF23N",
+    "start_time": "2026-10-03T14:38:30Z",
+    "end_time": "2026-10-03T14:39:30Z",
+    "details": {
+     "from": "DKF23N",
+     "field": "Danish Kriegers Flag",
+     "fuel usage": 2.9
+    }
+   },
+   {
+    "event_type": "transit",
+    "event_name": "Transit DKF - Klintholm",
+    "start_time": "2026-10-03T14:39:30Z",
+    "end_time": "2026-10-03T15:17:00Z",
+    "details": {
+     "from": "DKF",
+     "to": "Klintholm",
+     "fuel usage": 183.1
+    }
+   },
+   {
+    "event_type": "port",
+    "event_name": "Port Klintholm",
+    "start_time": "2026-10-03T15:17:00Z",
+    "end_time": "2026-10-03T15:17:40Z",
+    "details": {
+     "port": "Klintholm",
+     "fuel usage": 2
+    }
+   },
+   {
+    "event_type": "system offline",
+    "event_name": "System offline near Klintholm",
+    "start_time": "2026-10-03T15:17:40Z",
+    "end_time": "2026-10-04T00:00:00Z",
+    "details": {}
+   }
+  ],
+  "wave": null,
+  "wave_source_hint": "WTG11, Miros",
+  "missed": [],
+  "last_dpr_day": null,
+  "logged": [
+   {
+    "start": "2026-10-03T06:04:01.984797+00:00",
+    "stop": "2026-10-03T06:12:56.209821+00:00",
+    "location": "DKF03R"
+   },
+   {
+    "start": "2026-10-03T06:16:12.434597+00:00",
+    "stop": "2026-10-03T06:25:10.810272+00:00",
+    "location": "DKF01R"
+   },
+   {
+    "start": "2026-10-03T07:54:50.884702+00:00",
+    "stop": "2026-10-03T08:05:52.484925+00:00",
+    "location": "DKF01R"
+   },
+   {
+    "start": "2026-10-03T08:09:05.935395+00:00",
+    "stop": "2026-10-03T08:13:37.010207+00:00",
+    "location": "DKF03R"
+   },
+   {
+    "start": "2026-10-03T08:16:55.109856+00:00",
+    "stop": "2026-10-03T08:20:29.335198+00:00",
+    "location": "DKF05R"
+   },
+   {
+    "start": "2026-10-03T08:23:34.560385+00:00",
+    "stop": "2026-10-03T08:28:07.434916+00:00",
+    "location": "DKF07R"
+   },
+   {
+    "start": "2026-10-03T09:45:51.585115+00:00",
+    "stop": "2026-10-03T09:53:20.334623+00:00",
+    "location": "DKF07R"
+   },
+   {
+    "start": "2026-10-03T09:56:56.535069+00:00",
+    "stop": "2026-10-03T10:01:58.359644+00:00",
+    "location": "DKF05R"
+   },
+   {
+    "start": "2026-10-03T10:42:41.459620+00:00",
+    "stop": "2026-10-03T10:49:17.460187+00:00",
+    "location": "DKF17N"
+   },
+   {
+    "start": "2026-10-03T10:53:03.309787+00:00",
+    "stop": "2026-10-03T10:58:34.535420+00:00",
+    "location": "DKF22N"
+   },
+   {
+    "start": "2026-10-03T12:32:57.784988+00:00",
+    "stop": "2026-10-03T12:39:32.860223+00:00",
+    "location": "DKF22N"
+   },
+   {
+    "start": "2026-10-03T12:44:17.985412+00:00",
+    "stop": "2026-10-03T12:49:18.785279+00:00",
+    "location": "DKF23N"
+   },
+   {
+    "start": "2026-10-03T12:53:33.385347+00:00",
+    "stop": "2026-10-03T12:56:36.585308+00:00",
+    "location": "DKF17N"
+   },
+   {
+    "start": "2026-10-03T13:01:49.484637+00:00",
+    "stop": "2026-10-03T13:05:14.709696+00:00",
+    "location": "DKF16M"
+   },
+   {
+    "start": "2026-10-03T14:20:43.759682+00:00",
+    "stop": "2026-10-03T14:28:38.435231+00:00",
+    "location": "DKF16M"
+   },
+   {
+    "start": "2026-10-03T14:33:02.585086+00:00",
+    "stop": "2026-10-03T14:37:47.134850+00:00",
+    "location": "DKF23N"
+   }
+  ],
+  "data_start": "2026-10-03T05:17:59+00:00",
+  "data_end": "2026-10-03T15:17:29+00:00",
+  "route_start": "2026-10-03T00:05:28+00:00",
+  "route_end": "2026-10-03T10:00:19+00:00",
+  "harbour_arrival": "2026-10-03T15:17:04+00:00",
+  "recorded": true,
+  "vmru": {},
+  "vmru_expected": [],
+  "last_trace": null,
+  "project": null
+ }
+}

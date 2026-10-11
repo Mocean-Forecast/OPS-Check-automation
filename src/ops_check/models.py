@@ -54,6 +54,13 @@ class Owner(str, Enum):
     REGISTRY = "registry"  # Martijn: expired / unparseable registry entries
 
 
+class Tag(str, Enum):
+    """Teams tag @mentioned on a finding's line (handover, revises D22). None = no tag."""
+
+    OPS = "Team OPS"
+    DATA = "Team Data"
+
+
 @dataclass
 class Vessel:
     id: str
@@ -107,6 +114,7 @@ class Evidence:
     backlog_days: list[date] = field(default_factory=list)           # older days still in an inbox
     backlog_in_landing: bool = False                                 # oldest backlog sits in FTP_VESSEL_DATA
     folder_found: bool = True                                        # vessel has a folder on the shares
+    shares_checked: bool = True                                      # False if a share wasn't mounted
     db_processed: bool = False                                       # general / SOV_general / timeTraces present
     has_recorded_code: int | None = None                             # operationsStats.hasRecordedCode
     transit_max_gap_min: float | None = None
@@ -125,6 +133,7 @@ class Finding:
     owner: Owner
     message: str
     details: dict[str, Any] = field(default_factory=dict)
+    tag: Tag | None = None  # Teams tag for the line; None = no tag (DPR state, known)
 
     @property
     def key(self) -> str:

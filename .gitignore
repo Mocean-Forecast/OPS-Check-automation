@@ -18,3 +18,9 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Scheduled-run logs
+/logs/
+
+# Inspection dumps (DB extracts)
+/out/
